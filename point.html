@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="mn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Солилцооны механизм (Memory Swapping) — Интерактив симуляци</title>
+<style>
+:root{
+  --bg:#0b1220; --panel:#0b1426; --card:#0f1b2f;
+  --ink:#eef5ff; --muted:#9fb1d6; --line:#244472;
+  --brand:#3d6fe8; --brand-2:#1a3060;
+  --good:#78ef97; --bad:#ff8a7a; --warn:#ffd166;
+  --shadow:0 18px 46px rgba(0,0,0,.35);
+  --accent:#66e3ff; --accent2:#47ffa8;
+}
+*{box-sizing:border-box}
+html,body{
+  margin:0;background:radial-gradient(1100px 700px at 90% -10%, #0b1730 0%, #0b1220 55%, #0a0f1a 100%);
+  color:var(--ink); font-family:ui-sans-serif,system-ui,Segoe UI,Roboto,Arial,sans-serif; line-height:1.6;
+}
+
+header{padding:20px 16px;border-bottom:1px solid #1b2a45;background:linear-gradient(180deg,#0b162b,#0a1223)}
+h1{margin:0;text-align:center;font-size:28px;font-weight:600}
+.sub{margin:8px 0 0;text-align:center;color:var(--muted);font-size:14px}
+
+.container{max-width:1200px;margin:24px auto;padding:0 16px;display:grid;grid-template-columns:360px 1fr;gap:16px}
+.panel{
+  background:var(--panel); border:1px solid #16233f; border-radius:16px; box-shadow:var(--shadow);padding:16px;
+}
+.card{
+  background:var(--card); border:1px solid #16233f; border-radius:16px; box-shadow:var(--shadow);
+}
+.controls h2{margin:0 0 12px;font-size:18px;font-weight:600}
+.small{font-size:12px;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
+label{font-size:13px;color:var(--muted);font-weight:500}
+select,button,input[type="range"]{
+  background:#0b1730;border:1px solid #1b2a45;color:var(--ink);
+  padding:8px 12px;border-radius:10px;font-size:13px;
+}
+button{cursor:pointer;transition:all .2s;font-weight:500}
+button:hover{background:#0f1a35;border-color:#2a4268}
+button.primary{background:linear-gradient(180deg,#2d4f88,#153063);border-color:#1e325d}
+button.primary:hover{background:linear-gradient(180deg,#3a5a98,#1a3670)}
+button.ghost{background:#0c1630}
+button:disabled{opacity:.55;cursor:not-allowed}
+
+.stage{padding:20px}
+.grid{
+  display:grid;grid-template-columns:1.1fr 50px 1fr;gap:18px;align-items:start
+}
+
+/* ===== RAM / DISK ===== */
+.ram{
+  padding:14px;border:1px dashed #244472;border-radius:14px;position:relative;min-height:380px;background:rgba(11,22,48,.3);
+}
+.ram .title, .disk .title{font-size:14px;color:var(--muted);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;font-weight:600}
+.ram-cap{font-size:12px;color:#9fb1d6}
+.ram-slots{display:grid;gap:12px}
+.slot{
+  position:relative; height:72px; border:1px solid #244472; border-radius:12px; overflow:hidden;
+  background:linear-gradient(180deg,#0c1630,#0b1426);transition:border-color .3s;
+}
+.slot:hover{border-color:#2d5088}
+.slot-index{
+  position:absolute;inset:auto 8px 6px auto;color:#6885b8;font-size:11px;font-weight:500;
+}
+
+.pipe{display:flex;align-items:center;justify-content:center;height:100%}
+.arrow{
+  width:28px;height:28px;border-right:4px solid var(--brand);border-top:4px solid transparent;border-bottom:4px solid transparent;
+  animation:pulse 1.2s infinite ease-in-out;
+}
+@keyframes pulse{0%{opacity:.5}50%{opacity:1}100%{opacity:.5}}
+
+.disk{
+  padding:14px;border:1px dashed #244472;border-radius:14px;min-height:380px;background:rgba(11,22,48,.3);
+}
+.queue{display:flex;flex-direction:column;gap:10px}
+.queue .qslot{
+  height:62px;border:1px solid #244472;border-radius:12px;display:flex;align-items:center;justify-content:space-between;padding:8px 10px;gap:8px;background:#0c1630;transition:border-color .3s;
+}
+.queue .qslot:hover{border-color:#2d5088}
+
+/* ===== Process cards ===== */
+.proc{
+  --c:#3d6fe8;
+  position:absolute; inset:4px; border-radius:10px; border:1px solid color-mix(in lab, var(--c) 65%, #16325a);
+  background:linear-gradient(180deg, color-mix(in lab, var(--c) 18%, #0a1429), #0a1326);
+  box-shadow:0 8px 20px rgba(0,0,0,.35);
+  display:grid;grid-template-columns:1fr auto;align-items:center;padding:8px 10px;
+  transition: transform .55s ease, opacity .35s ease, filter .35s ease, box-shadow .35s ease;
+}
+.proc .name{font-weight:700;font-size:14px}
+.proc .meta{font-size:12px;color:#b5c7ee;margin-top:2px}
+.proc .badge{
+  font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #274877;background:#0b1730;color:#b7c9f0;font-weight:500;
+}
+.proc.running{box-shadow:0 10px 28px rgba(61,111,232,.4); transform:scale(1.04)}
+.proc.swapping-out{outline:2px dashed var(--warn);filter:grayscale(.15);animation:swapPulse 1s infinite}
+.proc.swapping-in{outline:2px dashed var(--accent2);animation:swapPulse 1s infinite}
+@keyframes swapPulse{0%,100%{opacity:1}50%{opacity:.75}}
+
+.color-A{--c:#66e3ff}
+.color-B{--c:#47ffa8}
+.color-C{--c:#ffd166}
+.color-D{--c:#ff8a7a}
+.color-E{--c:#b389ff}
+.color-F{--c:#70e3c5}
+.color-G{--c:#ffccf1}
+
+/* ===== Timeline / Why ===== */
+.tl{margin-top:16px;border-top:1px dashed #244472;padding-top:12px}
+.tl span{font-size:12px;color:var(--muted);font-weight:500}
+.ticks{height:6px;background:#0c1630;border:1px solid #1e325d;border-radius:999px;margin-top:8px;position:relative;overflow:hidden}
+.tick{position:absolute;top:0;bottom:0;width:6px;background:var(--brand);opacity:.7;border-right:1px solid #1a3060}
+
+.why{margin-top:14px;border:1px solid #1b2a45;background:#0b1730;border-radius:12px;padding:12px}
+.why h3{margin:0 0 8px;font-size:14px;font-weight:600}
+.why-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.why-card{border:1px dashed #264675;border-radius:10px;padding:10px;background:#0c1630}
+.why-card b{color:var(--ink);font-weight:600}
+.hint{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.5}
+
+/* ===== Swap Banner ===== */
+.swap-banner{
+  display:none; align-items:center; gap:10px;
+  border:1px solid #244472; background:#0c1630; color:#dce6ff;
+  border-radius:10px; padding:10px 12px; margin-bottom:12px;
+}
+.swap-banner.show{display:flex}
+.swap-badge{font-size:11px;padding:3px 8px;border-radius:999px;border:1px solid #274877;background:#0b1730;color:#b7c9f0;font-weight:600}
+.swap-arrow{font-weight:800; opacity:.9}
+
+/* ===== Footer / details ===== */
+footer{max-width:1200px;margin:12px auto 30px;padding:0 16px;color:var(--muted);font-size:12px;text-align:center}
+kbd{background:#0b1730;border:1px solid #1b2a45;padding:3px 8px;border-radius:6px;font-family:monospace;font-weight:500}
+
+.details{border:1px solid #1b2a45;background:#0b1730;border-radius:12px;padding:12px;margin-top:10px}
+summary{cursor:pointer;font-weight:600;color:#d6e2ff;user-select:none}
+summary:hover{color:#fff}
+.details ul{margin:8px 0;padding-left:20px}
+.details li{margin:6px 0}
+
+/* ===== Responsive ===== */
+@media (max-width: 980px){
+  .container{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .pipe{display:none}
+  .why-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Солилцооны механизм (Memory Swapping)</h1>
+  <p class="sub">Санах ойн солилцооны үйл явцыг харуулсан интерактив симуляци: процессууд RAM болон диск хоорондоо солигдох үйл явц</p>
+
+  <a href="slide.html" style="position:absolute;top:10px;right:18px;  
+  background:#0b1730;color:#cfe3ff;padding:8px 12px;border-radius:12px;
+  text-decoration:none;font-size:13px;box-shadow:0 2px 6px #0008">slide руу</a>
+<a href="index.html" style="position:absolute;top:10px;right:108px;  
+  background:#0b1730;color:#cfe3ff;padding:8px 12px;border-radius:12px;
+  text-decoration:none;font-size:13px;box-shadow:0 2px 6px #0008">Index руу</a>
+
+</header>
+
+<main class="container">
+  <section class="panel controls" aria-label="Удирдлагын самбар">
+    <h2>Удирдлагын самбар</h2>
+    <div class="row">
+      <button id="btnStart" class="primary">Эхлүүлэх ▶</button>
+      <button id="btnStep" class="ghost">Нэг алхам</button>
+      <button id="btnReset" class="ghost">Дахин эхлүүлэх</button>
+    </div>
+    <div class="row">
+      <button id="btnRandom" class="ghost">Санамсаргүй үүсгэх</button>
+      <button id="btnSmall" class="ghost">Жижиг процессууд</button>
+      <button id="btnSkew" class="ghost">Тэнцвэргүй хэмжээтэй</button>
+      <button id="btnMix" class="ghost">Холимог</button>
+    </div>
+
+    <div class="row">
+      <label for="strategy">Сонгох бодлого:</label>
+      <select id="strategy" title="RAM дүүрэх үед аль процессыг гаргах вэ">
+        <option value="FIFO">FIFO — Эхэлж орсон нь эхэлж гарна</option>
+        <option value="Largest">Хэмжээгээр — Хамгийн том процессыг гаргана</option>
+      </select>
+    </div>
+    
+    <div class="row">
+      <label for="speed">Хурд:</label>
+      <input type="range" id="speed" min="0.5" max="2" step="0.1" value="1" />
+      <span id="speedVal">1.0×</span>
+    </div>
+
+    <details class="details">
+      <summary>Солилцооны механизм талаар</summary>
+      <ul class="small">
+        <li><b>RAM (Үндсэн санах ой)</b> — Процесс ажиллах нөхцөл. Энэ симуляцид 4 слот байна.</li>
+        <li><b>Диск (Хоёрдогч санах ой)</b> — RAM дүүрэх үед түр хадгална.</li>
+        <li><b>Солилцоо (Swap)</b> — Процессыг бүхэлд нь RAM ⇄ Диск хооронд шилжүүлэх.</li>
+        <li><b>Burst Time</b> — Үлдсэн ажиллах хугацаа (мс).</li>
+        <li><b>FIFO бодлого</b> — RAM-д хамгийн удаан байсан процессыг гаргана.</li>
+        <li><b>Хэмжээгээр сонгох</b> — RAM дахь хамгийн том процессыг гаргана.</li>
+      </ul>
+    </details>
+
+    <details class="details">
+      <summary>Ажиллах зарчим</summary>
+      <ul class="small">
+        <li>Процесс RAM-д байж байж л CPU дээр ажиллана.</li>
+        <li>Сул слот байвал шинэ процесс шууд ачаалагдана.</li>
+        <li>RAM дүүрсэн бол бодлогоор <i>гаргагдах процесс</i> сонгогдоно (eviction), дараа нь шинэ процесс орж ирнэ.</li>
+        <li>Дууссан процесс RAM-аас чөлөөлөгдөнө.</li>
+      </ul>
+    </details>
+
+    <div class="tl">
+      <span>Цагийн шугам</span>
+      <div class="ticks" id="ticks"></div>
+    </div>
+
+    <div class="why" id="whyBox" aria-live="polite">
+      <h3>Одоогийн алхмын тайлбар</h3>
+      <div class="why-grid">
+        <div class="why-card" id="whyCause"><b>Шалтгаан:</b> —</div>
+        <div class="why-card" id="whyRule"><b>Бодлого:</b> —</div>
+        <div class="why-card" id="whyResult"><b>Үйлдэл:</b> —</div>
+      </div>
+      <div class="hint">Санамж: RAM дүүрэх үед сонгосон бодлогоор <i>гаргагдах</i> процессыг тодорхойлно. Баннер дээр OUT/IN тод харагдана.</div>
+    </div>
+
+    <div class="small" id="status" style="margin-top:10px;padding:8px;background:#0c1630;border-radius:8px">
+      <b>Төлөв:</b> Симуляци эхлүүлэхэд бэлэн байна.
+    </div>
+  </section>
+
+  <section class="card stage" aria-label="Симуляцийн талбар">
+    <!-- Swap banner -->
+    <div id="swapBanner" class="swap-banner" aria-live="polite">
+      <span class="swap-badge">Солилцоо</span>
+      <span id="swapOutTxt">OUT: —</span>
+      <span class="swap-arrow">⟷</span>
+      <span id="swapInTxt">IN: —</span>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="ram">
+          <div class="title">
+            RAM (Үндсэн санах ой)
+            <span class="ram-cap" id="ramCap">Слот: 4 • Ашиглалт: 0/4</span>
+          </div>
+          <div class="ram-slots" id="ram"></div>
+        </div>
+      </div>
+
+      <div class="pipe" aria-hidden="true">
+        <div class="arrow"></div>
+      </div>
+
+      <aside>
+        <div class="disk">
+          <div class="title">Диск (Хоёрдогч санах ой)</div>
+          <div class="queue" id="disk"></div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Товчлуур: <kbd>Space</kbd> — Эхлүүлэх/Зогсоох • <kbd>N</kbd> — Нэг алхам • <kbd>R</kbd> — Дахин эхлүүлэх</p>
+</footer>
+
+<script>
+const COLORS = ["color-A","color-B","color-C","color-D","color-E","color-F","color-G"];
+const RAM_SLOTS = 4;
+
+const PRESETS = {
+  small: [
+    { name:"A", size:120, burst:1600 },
+    { name:"B", size:180, burst:2000 },
+    { name:"C", size:150, burst:1500 },
+    { name:"D", size:190, burst:1900 },
+  ],
+  skewed: [
+    { name:"A", size:260, burst:2400 },
+    { name:"B", size:80,  burst:1200 },
+    { name:"C", size:300, burst:2600 },
+    { name:"D", size:90,  burst:900  },
+    { name:"E", size:280, burst:2200 },
+  ],
+  mixed: [
+    { name:"A", size:140, burst:2000 },
+    { name:"B", size:220, burst:2600 },
+    { name:"C", size:180, burst:1800 },
+    { name:"D", size:260, burst:2000 },
+    { name:"E", size:120, burst:1600 },
+    { name:"F", size:240, burst:2200 },
+  ]
+};
+
+function randomWorkload(){
+  const n = 5 + Math.floor(Math.random()*3);
+  const arr = [];
+  for(let i=0;i<n;i++){
+    const name = String.fromCharCode(65+i);
+    const size = 80 + Math.floor(Math.random()*240);
+    const burst= 1200 + Math.floor(Math.random()*1800);
+    arr.push({ name, size, burst });
+  }
+  return arr;
+}
+
+const state = {
+  playing: false,
+  speed: 1.0,
+  strategy: "FIFO",
+  ram: new Array(RAM_SLOTS).fill(null),
+  disk: [],
+  queue: [],
+  runningIdx: -1,
+  colorMap: new Map(),
+  ageCounter: 0,
+  timelineTicks: 0,
+  lastSwapOut: null,
+  lastSwapIn: null,
+};
+
+function pickColor(id){
+  if(!state.colorMap.has(id)){
+    const idx = state.colorMap.size % COLORS.length;
+    state.colorMap.set(id, COLORS[idx]);
+  }
+  return state.colorMap.get(id);
+}
+
+const ramEl     = document.getElementById('ram');
+const diskEl    = document.getElementById('disk');
+const ticksEl   = document.getElementById('ticks');
+const statusEl  = document.getElementById('status');
+const whyCause  = document.getElementById('whyCause');
+const whyRule   = document.getElementById('whyRule');
+const whyResult = document.getElementById('whyResult');
+const ramCap    = document.getElementById('ramCap');
+const swapBanner= document.getElementById('swapBanner');
+const swapOutTxt= document.getElementById('swapOutTxt');
+const swapInTxt = document.getElementById('swapInTxt');
+
+function buildSlots(){
+  ramEl.innerHTML = "";
+  for(let i=0;i<RAM_SLOTS;i++){
+    const s = document.createElement('div');
+    s.className = 'slot';
+    s.dataset.index = i;
+    const idx = document.createElement('div');
+    idx.className='slot-index';
+    idx.textContent = `Слот ${i+1}`;
+    s.appendChild(idx);
+    ramEl.appendChild(s);
+  }
+}
+buildSlots();
+
+function procCard(p){
+  const div = document.createElement('div');
+  div.className = `proc ${pickColor(p.name)}`;
+  div.innerHTML = `
+    <div>
+      <div class="name">Процесс ${p.name}</div>
+      <div class="meta">${p.size} MB • ${Math.round(p.burst/100)/10}с</div>
+    </div>
+    <span class="badge">PID: ${p.name}</span>
+  `;
+  return div;
+}
+
+function qSlot(p){
+  const q = document.createElement('div');
+  q.className = 'qslot';
+  const left = document.createElement('div');
+  left.style.display='flex'; left.style.gap='8px'; left.style.alignItems='center';
+  const tag = document.createElement('div');
+  tag.className = `badge`;
+  tag.textContent = `PID: ${p.name}`;
+  const meta = document.createElement('div');
+  meta.style.color = '#b7c9f0';
+  meta.style.fontSize = '12px';
+  meta.textContent = `${p.size} MB`;
+  left.appendChild(tag); left.appendChild(meta);
+  const right = document.createElement('div');
+  right.className='badge';
+  right.textContent = `${Math.max(0,Math.round(p.burst/100)/10)}с`;
+  q.appendChild(left); q.appendChild(right);
+  return q;
+}
+
+function updateCap(){
+  const used = state.ram.filter(x=>!!x).length;
+  ramCap.textContent = `Слот: ${RAM_SLOTS} • Ашиглалт: ${used}/${RAM_SLOTS}`;
+}
+
+function render(){
+  document.querySelectorAll('.slot').forEach((slotEl, i)=>{
+    slotEl.querySelectorAll('.proc').forEach(n=>n.remove());
+    const cell = state.ram[i];
+    if(cell){
+      const card = procCard(cell.proc);
+      slotEl.appendChild(card);
+      if(i===state.runningIdx) card.classList.add('running');
+    }
+  });
+  
+  diskEl.innerHTML = "";
+  state.disk.forEach(p => diskEl.appendChild(qSlot(p)));
+  
+  ticksEl.innerHTML = "";
+  for(let i=0;i<state.timelineTicks;i++){
+    const t = document.createElement('div');
+    t.className = 'tick';
+    t.style.left = `${(i*10)%100}%`;
+    ticksEl.appendChild(t);
+  }
+  updateCap();
+
+  // Update swap banner
+  if(state.lastSwapOut || state.lastSwapIn){
+    swapBanner.classList.add('show');
+    swapOutTxt.textContent = state.lastSwapOut
+      ? `OUT: P${state.lastSwapOut.name} (${state.lastSwapOut.size}MB, ${Math.max(0,Math.round(state.lastSwapOut.burst/100)/10)}с)`
+      : `OUT: —`;
+    swapInTxt.textContent = state.lastSwapIn
+      ? `IN: P${state.lastSwapIn.name} (${state.lastSwapIn.size}MB, ${Math.max(0,Math.round(state.lastSwapIn.burst/100)/10)}с)`
+      : `IN: —`;
+  } else {
+    swapBanner.classList.remove('show');
+  }
+}
+
+function anyFree(){
+  for(let i=0;i<RAM_SLOTS;i++) if(!state.ram[i]) return i;
+  return -1;
+}
+function oldestIdx(){
+  let best=-1, oldest=Infinity;
+  for(let i=0;i<RAM_SLOTS;i++){
+    const cell = state.ram[i];
+    if(cell && cell.since<oldest){oldest=cell.since;best=i;}
+  }
+  return best;
+}
+function largestIdx(){
+  let best=-1, max=-1;
+  for(let i=0;i<RAM_SLOTS;i++){
+    const cell = state.ram[i];
+    if(cell && cell.proc.size>max){max=cell.proc.size;best=i;}
+  }
+  return best;
+}
+function chooseVictim(){
+  return state.strategy==="Largest" ? largestIdx() : oldestIdx();
+}
+function say(msg){ statusEl.innerHTML = `<b>Төлөв:</b> ${msg}`; }
+function why(cause, rule, result){
+  whyCause.innerHTML = `<b>Шалтгаан:</b> ${cause}`;
+  whyRule .innerHTML = `<b>Бодлого:</b> ${rule}`;
+  whyResult.innerHTML = `<b>Үйлдэл:</b> ${result}`;
+}
+
+function clearSwapMarks(){
+  document.querySelectorAll('.proc').forEach(p=>{
+    p.classList.remove('swapping-out','swapping-in');
+  });
+  state.lastSwapOut = null;
+  state.lastSwapIn  = null;
+}
+
+function stepOnce(){
+  // 1) Дууссан процессыг чөлөөлөх
+  for(let i=0;i<RAM_SLOTS;i++){
+    const cell = state.ram[i];
+    if(cell && cell.proc.burst<=0){
+      say(`Процесс ${cell.proc.name} ажлаа дуусгасан тул RAM слот ${i+1}-г чөлөөлөв.`);
+      why(
+        `Процесс ${cell.proc.name}-ийн ажил дууссан (burst=0).`,
+        `Дууссан процесс RAM-аас чөлөөлөгдөнө.`,
+        `Слот ${i+1} сул болов.`
+      );
+      state.ram[i] = null;
+    }
+  }
+
+  clearSwapMarks();
+
+  // 2) Дисктэй / Шинэ процесс ачаалах
+  let freeIdx = anyFree();
+  if(freeIdx>=0 && state.disk.length>0){
+    const p = state.disk.shift();
+    state.ram[freeIdx] = {proc:p, since: state.ageCounter++};
+    state.lastSwapOut = null;
+    state.lastSwapIn  = p;
+    say(`Диск дэх процесс ${p.name}-г RAM слот ${freeIdx+1} рүү ачааллаа.`);
+    why(
+      `RAM-д сул слот байна, дискт хүлээгдэж буй процесс байна.`,
+      `Сул слот байвал эхний хүлээгдэгчийг буцааж ачаална.`,
+      `P${p.name} ажиллахад бэлэн боллоо.`
+    );
+  }
+  else if(state.queue.length>0){
+    freeIdx = anyFree();
+    const next = state.queue[0];
+    if(freeIdx>=0){
+      state.queue.shift();
+      state.ram[freeIdx] = {proc:next, since: state.ageCounter++};
+      state.lastSwapOut = null;
+      state.lastSwapIn  = next;
+      say(`Шинэ процесс ${next.name}-г RAM слот ${freeIdx+1} рүү ачааллаа.`);
+      why(
+        `RAM-д сул слот байна.`,
+        `Сул байр байвал шинэ процессыг шууд ачаална.`,
+        `P${next.name} ажиллаж эхлэв.`
+      );
+    }else{
+      // 3) RAM дүүрсэн — бодлогоор гаргах процессыг сонгоно
+      const v = chooseVictim();
+      const victim = state.ram[v].proc;
+      const vEl = ramEl.children[v].querySelector('.proc');
+      if(vEl){ vEl.classList.add('swapping-out'); }
+
+      state.disk.push(victim);
+
+      state.queue.shift();
+      state.ram[v] = {proc:next, since: state.ageCounter++};
+      state.lastSwapOut = victim;
+      state.lastSwapIn  = next;
+
+      // орж ирж буйг ч бас тэмдэглэе
+      const inEl = ramEl.children[v].querySelector('.proc');
+      if(inEl){ inEl.classList.add('swapping-in'); }
+
+      say(`RAM дүүрсэн. “${state.strategy}” бодлогоор гаргагдах процессыг сонгож, P${victim.name}-г диск рүү шилжүүлэн, P${next.name}-г слот ${v+1} рүү орууллаа.`);
+      why(
+        `RAM дүүрсэн, шинэ процесс (P${next.name}) ирсэн.`,
+        state.strategy==="Largest"
+          ? `Хамгийн том хэмжээтэй процессыг гаргана.`
+          : `RAM-д хамгийн удаан байсан процессыг гаргана (FIFO).`,
+        `OUT: P${victim.name} → Диск, IN: P${next.name} → RAM (слот ${v+1}).`
+      );
+    }
+  }
+
+  // 4) CPU цаг — хамгийн эртнийд өгье (энгийн RR маягийн ойлголтоор)
+  let pick = oldestIdx();
+  state.runningIdx = pick;
+  if(pick>=0){
+    const quantum = 600;
+    state.ram[pick].proc.burst -= quantum;
+    const p = state.ram[pick].proc;
+    const remaining = Math.max(0, p.burst);
+    say(`CPU: P${p.name}-г ажиллуулж байна (−${quantum}мс). Үлдэгдэл: ${remaining}мс.`);
+    why(
+      `CPU нэг процессыг богино хугацаагаар ажиллуулна.`,
+      `Энгийн байдлаар хамгийн эртний процессыг сонгох.`,
+      `P${p.name}-ийн хугацаа багасав.`
+    );
+
+    document.querySelectorAll('.slot').forEach((s,i)=>{
+      const card = s.querySelector('.proc');
+      if(!card) return;
+      card.classList.toggle('running', i===pick);
+      // swapping классуудыг хадгална (хэрэв саяхан swap болсон бол)
+    });
+  }
+
+  state.timelineTicks++;
+  render();
+}
+
+function setWorkload(arr){
+  state.queue = JSON.parse(JSON.stringify(arr));
+}
+function reset(){
+  state.playing = false;
+  state.speed = parseFloat(document.getElementById('speed').value)||1.0;
+  state.strategy = document.getElementById('strategy').value;
+  state.ram = new Array(RAM_SLOTS).fill(null);
+  state.disk = [];
+  state.runningIdx = -1;
+  state.colorMap.clear();
+  state.ageCounter = 0;
+  state.timelineTicks = 0;
+  state.lastSwapOut = null;
+  state.lastSwapIn  = null;
+  document.getElementById('swapBanner').classList.remove('show');
+  why(`Симуляци эхлэхэд бэлэн.`,`Сонгох бодлого: ${state.strategy}`,`Товч дарж туршиж үзээрэй.`);
+  say(`Симуляци эхлүүлэхэд бэлэн байна. Эхлүүлэх товч дарна уу.`);
+  render();
+}
+
+let rafId=null, lastTs=0;
+function loop(ts){
+  if(!state.playing){rafId=null;return;}
+  if(!lastTs) lastTs = ts;
+  const dt = (ts-lastTs) * state.speed;
+  if(dt>650){
+    stepOnce();
+    lastTs = ts;
+  }
+  rafId = requestAnimationFrame(loop);
+}
+
+/* ---------- UI wiring ---------- */
+const btnStart = document.getElementById('btnStart');
+const btnStep  = document.getElementById('btnStep');
+const btnReset = document.getElementById('btnReset');
+const btnRandom= document.getElementById('btnRandom');
+const btnSmall = document.getElementById('btnSmall');
+const btnSkew  = document.getElementById('btnSkew');
+const btnMix   = document.getElementById('btnMix');
+const speedInp = document.getElementById('speed');
+const speedVal = document.getElementById('speedVal');
+const strategySel = document.getElementById('strategy');
+
+function loadPreset(preset){
+  setWorkload(preset);
+  reset();
+}
+
+loadPreset(PRESETS.mixed);
+reset();
+
+btnStart.addEventListener('click', ()=>{
+  state.playing = !state.playing;
+  btnStart.textContent = state.playing ? "Түр зогсоох ⏸" : "Эхлүүлэх ▶";
+  if(state.playing && !rafId){ lastTs=0; loop(performance.now());}
+});
+
+btnStep.addEventListener('click', ()=>{
+  if(state.playing) return;
+  stepOnce();
+});
+
+btnReset.addEventListener('click', ()=>{
+  if(rafId) cancelAnimationFrame(rafId);
+  rafId=null; lastTs=0;
+  reset();
+  btnStart.textContent = "Эхлүүлэх ▶";
+});
+
+btnRandom.addEventListener('click', ()=> loadPreset(randomWorkload()));
+btnSmall .addEventListener('click', ()=> loadPreset(PRESETS.small));
+btnSkew  .addEventListener('click', ()=> loadPreset(PRESETS.skewed));
+btnMix   .addEventListener('click', ()=> loadPreset(PRESETS.mixed));
+
+speedInp.addEventListener('input', (e)=>{
+  state.speed = parseFloat(e.target.value);
+  speedVal.textContent = state.speed.toFixed(1)+"×";
+});
+
+strategySel.addEventListener('change', (e)=>{
+  state.strategy = e.target.value;
+  say(`Бодлого “${state.strategy}” боллоо — RAM дүүрэх үед гаргагдах процессыг сонгох дүрэм өөрчлөгдөнө.`);
+  why(`Бодлого солив.`, `FIFO эсвэл Хэмжээгээр сонгох бодлого хэрэглэнэ.`, `Дараагийн солилцоо өөрчлөгдөнө.`);
+});
+
+/* Keyboard shortcuts */
+window.addEventListener('keydown', (e)=>{
+  if(e.code==='Space'){ e.preventDefault(); btnStart.click(); }
+  if(e.key==='n' || e.key==='N'){ btnStep.click(); }
+  if(e.key==='r' || e.key==='R'){ btnReset.click(); }
+});
+
+/* Initial paint */
+render();
+</script>
+</body>
+</html>
