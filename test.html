@@ -692,7 +692,7 @@ input[type="range"]::-moz-range-thumb{
 
     <h2 style="margin-top:18px">3.Б) 7K RAM — 3 процесс (A=4K ×3, B=2K ×4, C=3K ×2) — FIFO</h2>
     <p class="warn" style="color:var(--muted)">
-      Шаардлага: RAM=7K, блок=1K. Дараалал (нийт давталт): <b>A,B,C,A,B,B,A,C,B</b>.
+      Шаардлага: RAM=7K, блок=1K. Дараалал (нийт давталт): <b>A:4,B:2,C:3,A:4,B:2,C:3,A:4,B:2,B:2</b>.
     </p>
     <div class="row">
       <button class="btn" id="btnScenarioRun">3.б-ийн сценари — 1 удаа</button>
@@ -1052,7 +1052,7 @@ q('#btnPlayB').addEventListener('click', async ()=>{ if(!stateB) return; const m
 
 /* ===== 3.Б: Scenario auto-run (ONE RUN) ===== */
 function runScenarioOnce(){
-  const seq = ['A:4','B:2','C:3','A:4','B:2','B:2','A:4','C:3','B:2']; // A:3, B:4, C:2
+  const seq = ['A:4','B:2','C:3','A:4','B:2','C:3','A:4','B:2','B:2']; // A:3, B:4, C:2
   q('#ramSizeB').value = 7;
   q('#blockSizeB').value = 1;
   q('#procListB').value = seq.join(',');
