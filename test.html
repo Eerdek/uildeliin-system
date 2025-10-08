@@ -769,14 +769,19 @@ input[type="range"]::-moz-range-thumb{
         </div>
         <div class="mem-info-body">
           <ul>
-            <li><b>EMAT</b> = h·t<sub>cache</sub> + (1 − h)·(t<sub>cache</sub> + t<sub>mem</sub>)</li>
-            <li>Ажиллах зарчим: <i>Hit</i> үед зөвхөн кэш (<code>t_cache</code>), <i>Miss</i> үед кэш + үндсэн ой (<code>t_cache + t_mem</code>).</li>
-            <li>Жишээ (h = 70%, t<sub>cache</sub> = 10&nbsp;ns, t<sub>mem</sub> = 200&nbsp;ns): EMAT = 0.7&nbsp;·&nbsp;10 + 0.3&nbsp;·&nbsp;(10 + 200) = <b>70&nbsp;ns</b>.</li>
-            <li><b>Speedup</b> (vs. t<sub>mem</sub>) = t<sub>mem</sub> / EMAT — кэшгүй (main memory (RAM/DRAM)) хувилбартай харьцуулсан хурд.</li>
-            <li>Кэш бодитоор ашигтай байх доод нөхцөл: h &gt; t<sub>cache</sub> / t<sub>mem</sub>. Манай жишээнд 10/200 = <b>5%</b> ⇒ h &gt; 5% байхад л ашигтай.</li>
+            <li><b>EMAT</b> (Effective Memory Access Time) = h·t<sub>cache</sub> + (1 − h)·t<sub>mem</sub></li>
+            <li>Ажиллах зарчим: 
+              <i>Hit</i> үед зөвхөн кэш рүү хандана (<code>t<sub>cache</sub></code>), 
+              <i>Miss</i> үед кэш алгасагдаж шууд үндсэн ой руу хандана (<code>t<sub>mem</sub></code>).
+            </li>
+            <li>Жишээ (h = 70%, t<sub>cache</sub> = 10&nbsp;ns, t<sub>mem</sub> = 200&nbsp;ns): 
+              EMAT = 0.7&nbsp;·&nbsp;10 + 0.3&nbsp;·&nbsp;200 = <b>67&nbsp;ns</b>.
+            </li>
+            <li><b>Speedup</b> (харьцуулахад): t<sub>mem</sub> / EMAT — кэшгүй (зөвхөн үндсэн санах ой) хувилбартай харьцуулсан дундаж хурдасалт.</li>
+            <li>Кэш ашигтай байх доод нөхцөл: h &gt; t<sub>cache</sub> / t<sub>mem</sub>. Манай жишээнд 10/200 = <b>5%</b> ⇒ h &gt; 5% байхад л кэш ашигтай гэж үзнэ.</li>
             <li><b>1 second</b> = 1,000,000,000 nanoseconds (ns) = 10<sup>9</sup>&nbsp;ns = 1,000,000,000,000 picoseconds (ps) = 10<sup>12</sup>&nbsp;ps.</li>
-            <li><b>1 ns</b> = 10<sup>&minus;9</sup>&nbsp;seconds (s) = 0.001&nbsp;microseconds (&micro;s) = 1,000&nbsp;ps.</li>
-            <li><b>1 ps</b> = 10<sup>&minus;12</sup>&nbsp;seconds (s) = 0.001&nbsp;ns = 1,000&nbsp;femtoseconds (fs).</li>
+            <li><b>1 ns</b> = 10<sup>−9</sup>&nbsp;seconds (s) = 0.001&nbsp;microseconds (&micro;s) = 1,000&nbsp;ps.</li>
+            <li><b>1 ps</b> = 10<sup>−12</sup>&nbsp;seconds (s) = 0.001&nbsp;ns = 1,000&nbsp;femtoseconds (fs).</li>
           </ul>
         </div>
       </div>
@@ -1071,7 +1076,7 @@ function updateEMAT(){
   const hPerc = toNum(q('#h').value,70);
   const h = hPerc/100;
 
-  const emat = h*tc + (1-h)*(tc+tm);          // ns
+  const emat = h*tc + (1-h)*tm;         // ns
   const hitPart  = h*tc;
   const missPart = (1-h)*(tc+tm);
 
@@ -1086,8 +1091,8 @@ function updateEMAT(){
   q('#barMiss').style.width = (missPart/total*100)+'%';
 
   q('#eqText').innerHTML =
-    `EMAT = h·t<sub>cache</sub> + (1−h)·(t<sub>cache</sub>+t<sub>mem</sub>) = ` +
-    `${h.toFixed(2)}·${tc} + ${(1-h).toFixed(2)}·(${tc}+${tm}) = <b>${emat.toFixed(2)} ns</b>`;
+  `EMAT = h·t<sub>cache</sub> + (1−h)·t<sub>mem</sub> = ` +
+  `${h.toFixed(2)}·${tc} + ${(1-h).toFixed(2)}·${tm} = <b>${emat.toFixed(2)} ns</b>`;
 }
 ['#tc','#tm','#h'].forEach(sel=>q(sel).addEventListener('input', updateEMAT));
 q('#btnSample').addEventListener('click',()=>{ q('#tc').value=10; q('#tm').value=200; q('#h').value=70; updateEMAT();});
