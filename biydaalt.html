@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Процесс & Төлөвлөлт</title>
+<link rel="stylesheet" href="/hergtei/styles.css" />
+</head>
+<body>
+<div class="bg"></div>
+
+<header class="top card">
+  <div class="brand">
+    <div class="logo">⚛️</div><div>2-р баг</div>
+  </div>
+  <nav class="nav">
+    <a href="#" data-goto="home" class="active">HOME</a>
+    <a href="#" data-goto="about">Процесс гэж юу вэ?</a>
+    <a href="#" data-goto="content">Салбар процесс</a>
+    <a href="#" data-goto="sim">Процессын 4 хэрэгжүүлэлт</a>
+  </nav>
+</header>
+
+<section id="home" class="active">
+  <div class="card hero">
+    <div>
+      <h1 class="huge">Процесс<br>болон салбар процесс</h1>
+      <p class="muted">Үйлдлийн систем — F.CSM302 | 2-р баг</p>
+    </div>
+
+    <!-- 🎨 Animated SVG background (decorative) -->
+    <svg class="hero-art" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <!-- Soft glow -->
+        <filter id="blur10" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="28" />
+        </filter>
+
+        <!-- Gradient fills -->
+        <radialGradient id="g1" cx="50%" cy="50%" r="0.6">
+          <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="g2" cx="50%" cy="50%" r="0.6">
+          <stop offset="0%" stop-color="#f472b6" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#f472b6" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="g3" cx="50%" cy="50%" r="0.6">
+          <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Stroke gradient for the ring -->
+        <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#22d3ee"/>
+          <stop offset="50%" stop-color="#60a5fa"/>
+          <stop offset="100%" stop-color="#a78bfa"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Floating gradient blobs -->
+      <g filter="url(#blur10)">
+        <circle class="blob b1" cx="280" cy="300" r="180" fill="url(#g1)"/>
+        <circle class="blob b2" cx="950" cy="180" r="200" fill="url(#g2)"/>
+        <circle class="blob b3" cx="820" cy="460" r="160" fill="url(#g3)"/>
+      </g>
+
+      <!-- CPU chip + orbiting threads -->
+      <g class="cluster" transform="translate(600,300)">
+        <!-- glowing ring -->
+        <circle class="ring" r="185" fill="none" stroke="url(#ringGrad)" stroke-width="3"
+                stroke-dasharray="32 18" />
+        <!-- CPU core -->
+        <g class="cpu">
+          <rect x="-60" y="-60" width="120" height="120" rx="16"
+                fill="#0b1220" stroke="#3b82f6" stroke-width="2"/>
+          <!-- little pins -->
+          <g stroke="#1f2937" stroke-width="6">
+            <line x1="-76" y1="-36" x2="-60" y2="-36"/>
+            <line x1="-76" y1="-12" x2="-60" y2="-12"/>
+            <line x1="-76" y1="12"  x2="-60" y2="12"/>
+            <line x1="-76" y1="36"  x2="-60" y2="36"/>
+            <line x1="60" y1="-36" x2="76" y2="-36"/>
+            <line x1="60" y1="-12" x2="76" y2="-12"/>
+            <line x1="60" y1="12"  x2="76" y2="12"/>
+            <line x1="60" y1="36"  x2="76" y2="36"/>
+          </g>
+          <!-- pulse -->
+          <circle r="8" fill="#22d3ee" opacity="0.85" />
+        </g>
+
+        <!-- orbit layer (three threads orbiting) -->
+        <g class="orbit orbit-a">
+          <circle class="node" r="10" fill="#60a5fa" />
+        </g>
+        <g class="orbit orbit-b">
+          <circle class="node" r="10" fill="#a78bfa" />
+        </g>
+        <g class="orbit orbit-c">
+          <circle class="node" r="10" fill="#22d3ee" />
+        </g>
+      </g>
+
+      <!-- subtle scanline sheen -->
+      <rect class="sheen" x="-200" y="0" width="400" height="600" fill="white" opacity="0.06" />
+    </svg>
+  </div>
+</section>
+
+<!-- ====== ABOUT 1 — Q/A + Image ====== -->
+<section id="about">
+  <div class="card qa-slide">
+    <div class="qa">
+      <h2 class="qa-title">
+        <span class="spark">
+          <svg viewBox="0 0 120 24" class="spark-svg" aria-hidden="true">
+            <defs>
+              <linearGradient id="sparkG" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0"  stop-color="#22d3ee"/>
+                <stop offset="1"  stop-color="#a78bfa"/>
+              </linearGradient>
+            </defs>
+            <!-- animated underline -->
+            <rect x="0" y="18" width="120" height="4" rx="2" fill="url(#sparkG)">
+              <animate attributeName="x" from="-120" to="120" dur="2.8s" repeatCount="indefinite"/>
+            </rect>
+          </svg>
+        </span>
+        Процесс гэж юу вэ?
+      </h2>
+      <div class="qa-body">
+        <p>Үйлдлийн системд программ ажиллаж эхлэх агшинд төв процессорт хийгдэж буй <b>идэвхтэй</b> ажил.</p>
+        <ul class="bullets">
+          <li><b>PID</b>, тусгаарлагдсан хаягийн орон зай (code/data/stack/heap)</li>
+          <li>Нээлттэй файлууд, descriptor-ууд, төлөвийн мэдээлэл</li>
+        </ul>
+        <p class="muted small">Товчоор: <b>Програм</b> = диск дээрх код, <b>Процесс</b> = RAM дээрх гүйж буй төлөв.</p>
+      </div>
+    </div>
+    <figure class="media-right">
+      <img src="/assets/10.webp" alt="Процессийн үндсэн ойлголт 1" style="min-height: 300px;">
+      <img src="/assets/11.webp" alt="Процессийн үндсэн ойлголт 2" class="stacked">
+    </figure>
+  </div>
+</section>
+
+<!-- ====== ABOUT 2 ====== -->
+<section id="about-2">
+  <div class="card qa-slide">
+    <div class="qa">
+      <h2 class="qa-title">Процесс хаана явагддаг вэ?</h2>
+      <div class="qa-body">
+        <p>Input → CPU/Memory → Output урсгал дээр явагдана. CPU гүйцэтгэж, санах ой төлөвийг хадгална.</p>
+        <ul class="bullets">
+          <li>Secondary storage-оос ачаалж RAM руу</li>
+          <li>CPU дээр <b>instruction cycle</b> (fetch–decode–execute)</li>
+        </ul>
+      </div>
+    </div>
+    <figure class="media-right">
+      <img src="/assets/12.webp" alt="CPU/Memory төвтэй урсгал" style="min-width: 500px; min-height: 300px;">
+    </figure>
+  </div>
+</section>
+
+<!-- ====== ABOUT 3 ====== -->
+<section id="about-3">
+  <div class="card qa-slide">
+    <div class="qa">
+      <h2 class="qa-title">Компьютерийн бүрэлдэхүүн?</h2>
+      <div class="qa-body">
+        <p>Motherboard, CPU, RAM, BUS, I/O төхөөрөмжүүдийн уялдаа.</p>
+        <ul class="bullets">
+          <li><b>CPU</b> — CU/ALU, регистрүүд</li>
+          <li><b>RAM</b> — ажиллах өгөгдөл/код</li>
+          <li><b>BUS</b> — өгөгдөл/хаяг/удирдлагын шугам</li>
+        </ul>
+      </div>
+    </div>
+    <figure class="media-right">
+      <img src="/assets/13.webp" alt="Motherboard • RAM • BUS • I/O">
+    </figure>
+  </div>
+</section>
+
+<!-- ====== ABOUT 4 ====== -->
+<section id="about-4">
+  <div class="card qa-slide">
+    <div class="qa">
+      <h2 class="qa-title">Ports ба оролт/гаралт</h2>
+      <div class="qa-body">
+        <p>Төхөөрөмжүүдтэй холбогдох логик сувгууд. OS нь драйвераар дамжуулж удирдана.</p>
+        <ul class="bullets">
+          <li>Input: keyboard, mouse, mic…</li>
+          <li>Output: display, speaker, printer…</li>
+        </ul>
+      </div>
+    </div>
+    <figure class="media-right">
+      <img src="/assets/14.webp" alt="Ports / Input / Output / RAM / HDD" style="max-width: 400px;">
+    </figure>
+  </div>
+</section>
+
+<!-- ====== ABOUT 5 ====== -->
+<section id="about-5">
+  <div class="card qa-slide">
+    <div class="qa">
+      <h2 class="qa-title">Program vs Process vs Thread</h2>
+      <div class="qa-body">
+        <ul class="bullets">
+          <li><b>Program</b> — диск дээрх статик код</li>
+          <li><b>Process</b> — RAM дээрх гүйж буй нэгж, нөөцийн эзэмшигч</li>
+          <li><b>Thread</b> — процесс доторх гүйцэтгэлийн хамгийн жижиг урсгал</li>
+        </ul>
+        <p class="muted small">Зорилго: нөөцийг зөв хуваарилж throughput, latency-г тэнцвэржүүлэх.</p>
+      </div>
+    </div>
+    <figure class="media-right">
+      <img src="/assets/15.webp" alt="Program vs Process vs Thread харьцуулалт" style="max-width: 400px;">
+    </figure>
+  </div>
+</section>
+
+<!-- ====== CONTENT 1 — Thread process intro + table ====== -->
+<section id="content">
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">Салбар процесс <span class="aster">*</span><br><small>(Thread process)</small></div>
+      <div class="note">Процесс дотор олон урсгал зэрэг ажилласнаар CPU-г илүү үр ашигтай ашиглаж,
+        latency буурна. Хуваалцдаг нөөцүүдэд <b>lock</b>, <b>mutex</b>, <b>semaphore</b> хэрэгтэй.
+        <img src="/assets/17.webp" alt="User vs Kernel level thread" style="max-width: 400px; padding-left: 40px; padding-top: 20px;">
+      </div>
+    </div>
+    <figure class="media-right lg">
+      <img src="/assets/16.webp" alt="Process vs Thread харьцуулалт (table)">
+      <figcaption>Process vs Thread</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====== CONTENT 2 — Single vs Multi-threaded ====== -->
+<section id="content-2">
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">Салбар процесс <span class="aster">*</span><br><small>(Thread process)</small></div>
+      <img src="/assets/19.webp" alt="Multiprogramming memory layout" style="min-width: 400px; padding-left: 10px; padding-top: 20px;">
+    </div>
+    <figure class="media-right xl">
+      <img src="/assets/18.webp" alt="Single-threaded vs Multithreaded process" style="max-width: 400px;">
+      <figcaption>Single vs Multithreaded</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====== CONTENT 3 — Multithreading models (Many↔Many) ====== -->
+<section id="content-3">
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">Multithreading Models</div>
+      <ul class="bullets">
+        <li>Many-to-One • One-to-One • Many-to-Many</li>
+        <li>OS ба runtime-ийн урсгал холболтын стратеги</li>
+      </ul>
+    </div>
+    <figure class="media-right lg">
+      <img src="/assets/20.webp" alt="Multithreading models" style="min-width: 400px;">
+      <figcaption>Many-to-One / One-to-One / Many-to-Many</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====== CONTENT 4 — Scheduling overview (visual) ====== -->
+<section id="content-4">
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">CPU Scheduling</div>
+      <ul class="bullets">
+        <li><b>FCFS</b>, <b>SJF</b>, <b>RR</b>, <b>Priority</b></li>
+        <li>Зорилго: Avg Wait/Turnaround/Response-ийг багасгах</li>
+      </ul>
+    </div>
+    <figure class="media-right lg">
+      <img src="/assets/21.webp" alt="Scheduling concept visual" style="min-width: 400px;">
+      <figcaption>Scheduling visuals</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ====== CONTENT 5 — IPC & Safety (visual) ====== -->
+<section id="content-5">
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">IPC & Thread Safety</div>
+      <ul class="bullets">
+        <li>Pipes, MQ, Shared Memory, Sockets…</li>
+        <li>Mutex/Lock, Deadlock, Race condition</li>
+      </ul>
+    </div>
+    <figure class="media-right lg">
+      <img src="/assets/22.webp" alt="IPC / Safety visual" style="min-width: 400px; min-height: 300px;">
+      <figcaption>IPC / Safety</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== TASK SLIDES: PROCESS SCHEDULING ===== -->
+
+<!-- Slide 1 — 4 algorithms overview -->
+<section id="task-1">
+  <div class="card content-slide">
+    <div class="left">
+      <h2>Процессын 4 хэрэгжүүлэлт</h2>
+      <ul class="bullets">
+        <li><b>First In First Out (FIFO)</b></li>
+        <li><b>Shortest Job First (SJF)</b></li>
+        <li><b>Round Robin (RR)</b></li>
+        <li><b>Priority </b></li>
+      </ul>
+      <p class="muted">Эдгээр нь процессуудыг CPU-д хуваарилах үндсэн төлөвлөлтийн аргууд юм.</p>
+    </div>
+
+    <!-- 🎨 Animated SVG illustration -->
+    <div class="media-right">
+      <svg class="sched-anim" viewBox="0 0 400 400" aria-hidden="true">
+        <!-- CPU core -->
+        <circle cx="200" cy="200" r="36" fill="#0b1220" stroke="#60a5fa" stroke-width="2" />
+        <circle class="pulse" cx="200" cy="200" r="12" fill="#22d3ee" />
+
+        <!-- Orbiting processes -->
+        <g class="orbit orbit1">
+          <circle cx="200" cy="80" r="10" fill="#60a5fa" />
+        </g>
+        <g class="orbit orbit2">
+          <circle cx="320" cy="200" r="10" fill="#34d399" />
+        </g>
+        <g class="orbit orbit3">
+          <circle cx="200" cy="320" r="10" fill="#f472b6" />
+        </g>
+        <g class="orbit orbit4">
+          <circle cx="80" cy="200" r="10" fill="#f59e0b" />
+        </g>
+
+        <!-- faint ring -->
+        <circle cx="200" cy="200" r="120" stroke="#1e293b" stroke-width="1.5" fill="none" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="task-2">
+  <style>
+    /* ---- Scoped only to #task-2 ---- */
+    #task-2{
+      --bg:#0b0f1a; --card:#101628; --border:rgba(255,255,255,.08);
+      --fg:#e5eefc; --muted:#9fb1d6;
+    }
+    #task-2 .card{
+      display:grid; align-items:center; gap:24px;
+      grid-template-columns: minmax(320px,0.7fr) 1.3fr; /* зүүн текст, баруун ТОМ SVG */
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; padding:24px;
+    }
+    #task-2 .title-chip{
+      display:inline-block; padding:8px 12px; border-radius:999px;
+      font-weight:800; font-size:14px; letter-spacing:.2px;
+      background:linear-gradient(135deg,#0ea5e9,#22d3ee); color:#07131b;
+      margin-bottom:12px;
+    }
+    #task-2 p{ margin:0; color:var(--fg); line-height:1.6 }
+
+    #task-2 .media-right{ display:flex; justify-content:center }
+    #task-2 .svg-wrap{
+      width:100%; aspect-ratio:1200 / 420;  /* томруулсан харагдах байдал */
+      border-radius:14px; overflow:hidden; background:#081326;
+      box-shadow:0 8px 32px rgba(0,0,0,.35); outline:1px solid rgba(255,255,255,.05);
+    }
+    #task-2 svg{ width:100%; height:100%; display:block }
+
+    @media (max-width:900px){
+      #task-2 .card{ grid-template-columns:1fr }
+      #task-2 .svg-wrap{ aspect-ratio:1200 / 520 }
+    }
+    @media (prefers-reduced-motion:reduce){
+      /* FIFO SVG доторх animation-уудыг намдаая */
+      #task-2 .march, #task-2 .pulse, #task-2 .grow{ animation:none !important }
+    }
+  </style>
+
+  <div class="card content-slide stack-bottom">
+    <div class="left">
+      <div class="title-chip">FIRST IN FIRST OUT гэж юу вэ?</div>
+    <p>
+    Процессууд ирсэн дарааллаараа CPU-г ашиглана.  
+    Энгийн боловч <b>эхэнд ирсэн урт процесс</b> удаан ажиллавал
+    дараагийн богино процессууд бүгд хүлээж,
+    системийн дундаж хүлээлт ихэсдэг.
+    </p>
+    </div>
+
+    <figure class="media-right lg" aria-label="FIFO queue → CPU">
+      <div class="svg-wrap">
+        <svg viewBox="0 0 1200 360" role="img" aria-label="FIFO queue to CPU with image">
+          <defs>
+            <linearGradient id="fifoCPU" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#22d3ee"/>
+            </linearGradient>
+            <linearGradient id="gMed" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+            <linearGradient id="gShort" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+            </linearGradient>
+            <linearGradient id="gLong" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#db2777"/>
+            </linearGradient>
+            <clipPath id="imgRound">
+              <rect x="860" y="24" width="316" height="216" rx="22" ry="22"/>
+            </clipPath>
+            <style>
+              .lbl{font:700 16px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#dbeafe}
+              .muted{font:600 12px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#9fb1d6}
+              .chipTxt{font:800 14px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#0b1220}
+              .march{stroke-dasharray:10 10; animation:march 8s linear infinite}
+              @keyframes march{to{stroke-dashoffset:-500}}
+              .pulse{animation:pulse 2.2s ease-in-out infinite}
+              @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+              .grow{animation:bar 5s ease-in-out infinite}
+              @keyframes bar{0%{width:0} 45%{width:60%} 100%{width:60%}}
+            </style>
+          </defs>
+
+          <!-- left queue -->
+          <g transform="translate(24,36)">
+            <text class="lbl" x="0" y="-10">FIFO — ирсэн дарааллаараа</text>
+            <rect x="0" y="0" width="520" height="96" rx="18" ry="18" fill="#0b1730" stroke="#274274"/>
+            <g transform="translate(18,20)">
+              <rect rx="12" ry="12" width="86" height="38" fill="url(#gMed)"/><text class="chipTxt" x="43" y="24" text-anchor="middle">P4</text>
+            </g>
+            <g transform="translate(118,20)" opacity=".95">
+              <rect rx="12" ry="12" width="86" height="38" fill="#a78bfa"/><text class="chipTxt" x="43" y="24" text-anchor="middle">P2</text>
+            </g>
+            <g transform="translate(218,20)" opacity=".95">
+              <rect rx="12" ry="12" width="86" height="38" fill="#93c5fd"/><text class="chipTxt" x="43" y="24" text-anchor="middle">P1</text>
+            </g>
+          </g>
+
+          <!-- flow -->
+          <path d="M 560 84 H 820" class="march" stroke="#88a5ff" stroke-width="4" fill="none" opacity=".8"/>
+
+          <!-- CPU -->
+          <g transform="translate(640,24)">
+            <rect x="0" y="0" width="180" height="180" rx="24" ry="24" fill="url(#fifoCPU)"/>
+            <rect x="14" y="14" width="152" height="152" rx="18" ry="18" fill="#0e2730" opacity=".88" stroke="#134e4a"/>
+            <circle cx="90" cy="90" r="13" fill="#22d3ee" class="pulse"/>
+            <text class="lbl" x="90" y="208" text-anchor="middle">CPU</text>
+          </g>
+
+          <!-- gantt -->
+          <g transform="translate(24,220)">
+            <text class="muted" x="0" y="-10">Gantt (FIFO)</text>
+            <rect x="0" y="0" width="780" height="22" rx="12" ry="12" fill="#0b152a" stroke="#2b4c82"/>
+            <rect x="0" y="0" height="22" rx="12" ry="12" fill="url(#fifoCPU)" class="grow"/>
+          </g>
+        </svg>
+      </div>
+    </figure>
+    <img src="/assets/23.webp" alt="SJF concept image" style="max-width: 700px; margin-left: 490px;">
+  </div>
+</section>
+
+
+<section id="task-3">
+  <style>
+    /* ---- Scoped only to #task-3 ---- */
+    #task-3 {
+      --bg:#0b0f1a;
+      --card:#101628;
+      --border:rgba(255,255,255,.08);
+      --fg:#e5eefc;
+      --muted:#9fb1d6;
+    }
+
+    #task-3 .card {
+      display: grid;
+      grid-template-columns: minmax(320px, 0.7fr) 1.3fr;
+      align-items: center;
+      gap: 24px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+
+    #task-3 .title-chip {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 14px;
+      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+      color: #07131b;
+      margin-bottom: 12px;
+    }
+
+    #task-3 p {
+      color: var(--fg);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    #task-3 .media-right {
+      display: flex;
+      justify-content: center;
+    }
+
+    #task-3 .svg-wrap {
+      width: 100%;
+      aspect-ratio: 1200 / 420; /* larger look */
+      border-radius: 14px;
+      overflow: hidden;
+      background: #081326;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+      outline: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    #task-3 svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @media (max-width: 900px) {
+      #task-3 .card {
+        grid-template-columns: 1fr;
+      }
+      #task-3 .svg-wrap {
+        aspect-ratio: 1200 / 520;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #task-3 .pick,
+      #task-3 .seg1,
+      #task-3 .seg2,
+      #task-3 .seg3 {
+        animation: none !important;
+      }
+    }
+  </style>
+
+  <div class="card content-slide">
+    <!-- Left side text -->
+    <div class="left">
+      <div class="title-chip">SHORTEST JOB FIRST гэж юу вэ?</div>
+      <p>
+        CPU-г хамгийн бага хугацаанд ашиглах процессыг түрүүлж ажиллуулна.
+        Иймээс нийт хүлээлт багасдаг ч, урт процессууд дарааллын хойно удаан хүлээж болзошгүй.
+      </p>
+    </div>
+
+    <!-- Right side SVG -->
+    <figure class="media-right" aria-label="SJF visual">
+      <div class="svg-wrap">
+        <svg viewBox="0 0 1200 380" role="img" aria-labelledby="sjfTitle">
+          <title id="sjfTitle">SJF — хамгийн богино ажлыг түрүүлж сонгох жишээ</title>
+          <defs>
+            <linearGradient id="sjfCPU" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#10b981" />
+              <stop offset="1" stop-color="#34d399" />
+            </linearGradient>
+            <linearGradient id="cShort" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#34d399" />
+              <stop offset="1" stop-color="#10b981" />
+            </linearGradient>
+            <linearGradient id="cMed" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f59e0b" />
+              <stop offset="1" stop-color="#d97706" />
+            </linearGradient>
+            <linearGradient id="cLong" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f472b6" />
+              <stop offset="1" stop-color="#db2777" />
+            </linearGradient>
+            <style>
+              .lbl {
+                font: 700 16px ui-sans-serif, system-ui, Segoe UI, Roboto;
+                fill: #d1fae5;
+              }
+              .muted {
+                font: 600 12px ui-sans-serif, system-ui, Segoe UI, Roboto;
+                fill: #9fb1d6;
+              }
+              .chipTxt {
+                font: 800 14px ui-sans-serif, system-ui, Segoe UI, Roboto;
+                fill: #0b1220;
+              }
+              .pick {
+                animation: pick 3s ease-in-out infinite;
+              }
+              @keyframes pick {
+                0%,
+                55% {
+                  transform: translate(0, 0) scale(1);
+                }
+                70%,
+                100% {
+                  transform: translate(240px, 8px) scale(1.06);
+                }
+              }
+              .seg1 {
+                animation: seg1 3s ease-in-out infinite;
+              }
+              .seg2 {
+                animation: seg2 3s ease-in-out infinite;
+              }
+              .seg3 {
+                animation: seg3 3s ease-in-out infinite;
+              }
+              @keyframes seg1 {
+                0% {
+                  width: 0;
+                }
+                55% {
+                  width: 28%;
+                }
+                100% {
+                  width: 28%;
+                }
+              }
+              @keyframes seg2 {
+                0% {
+                  width: 0;
+                }
+                55% {
+                  width: 0;
+                }
+                85% {
+                  width: 62%;
+                }
+                100% {
+                  width: 62%;
+                }
+              }
+              @keyframes seg3 {
+                0% {
+                  width: 0;
+                }
+                85% {
+                  width: 0;
+                }
+                100% {
+                  width: 100%;
+                }
+              }
+            </style>
+          </defs>
+
+          <!-- ready set -->
+          <g transform="translate(24,36)">
+            <text class="lbl" x="0" y="-10">SJF — хамгийн богиног түрүүлж сонгоно</text>
+            <rect
+              x="0"
+              y="0"
+              width="520"
+              height="110"
+              rx="18"
+              ry="18"
+              fill="#0b1730"
+              stroke="#274274"
+            />
+            <g transform="translate(16,22)">
+              <rect
+                rx="12"
+                ry="12"
+                width="86"
+                height="38"
+                fill="url(#cLong)"
+              />
+              <text class="chipTxt" x="43" y="24" text-anchor="middle">P4</text>
+              <text class="muted" x="-2" y="64">burst: 9</text>
+            </g>
+            <g transform="translate(116,22)">
+              <rect
+                rx="12"
+                ry="12"
+                width="86"
+                height="38"
+                fill="url(#cMed)"
+              />
+              <text class="chipTxt" x="43" y="24" text-anchor="middle">P2</text>
+              <text class="muted" x="-2" y="64">burst: 5</text>
+            </g>
+            <g class="pick" transform="translate(216,22)">
+              <rect
+                rx="12"
+                ry="12"
+                width="86"
+                height="38"
+                fill="url(#cShort)"
+              />
+              <text class="chipTxt" x="43" y="24" text-anchor="middle">P1</text>
+              <text class="muted" x="-2" y="64">burst: 2</text>
+            </g>
+          </g>
+
+          <!-- CPU -->
+          <g transform="translate(640,28)">
+            <rect
+              x="0"
+              y="0"
+              width="200"
+              height="200"
+              rx="26"
+              ry="26"
+              fill="url(#sjfCPU)"
+            />
+            <rect
+              x="14"
+              y="14"
+              width="172"
+              height="172"
+              rx="20"
+              ry="20"
+              fill="#0e2a23"
+              opacity=".92"
+              stroke="#065f46"
+            />
+            <circle cx="100" cy="100" r="14" fill="#34d399" />
+            <text
+              class="lbl"
+              x="100"
+              y="224"
+              text-anchor="middle"
+              fill="#d1fae5"
+            >
+              CPU
+            </text>
+          </g>
+
+          <!-- Gantt -->
+          <g transform="translate(470,240)">
+            <text class="muted" x="0" y="-12">Gantt (SJF): P1 → P2 → P4</text>
+            <rect
+              x="0"
+              y="0"
+              width="700"
+              height="22"
+              rx="12"
+              ry="12"
+              fill="#0b152a"
+              stroke="#2b4c82"
+            />
+            <rect
+              x="0"
+              y="0"
+              height="22"
+              rx="12"
+              ry="12"
+              fill="url(#cShort)"
+              class="seg1"
+            />
+            <rect
+              x="0"
+              y="0"
+              height="22"
+              rx="12"
+              ry="12"
+              fill="url(#cMed)"
+              class="seg2"
+              opacity=".9"
+            />
+            <rect
+              x="0"
+              y="0"
+              height="22"
+              rx="12"
+              ry="12"
+              fill="url(#cLong)"
+              class="seg3"
+              opacity=".85"
+            />
+          </g>
+        </svg>
+      </div>
+    </figure>
+    <img src="/assets/24.webp" alt="SJF concept image" style="max-width: 700px; margin-left: 490px;">
+  </div>
+</section>
+
+<!-- Slide 4 — RR concept -->
+<section id="task-4">
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">ROUND ROBIN гэж юу вэ?</div>
+      <p>CPU цагийг ижил хэмжээтэй quantum-аар хуваарилна.  
+        Fairness сайтай, interactive системд тохиромжтой.</p>
+    </div>
+    <figure class="media-right lg">
+      <img src="/assets/25.webp" alt="Round Robin concept">
+    </figure>
+  </div>
+</section>
+
+<!-- Slide 5 — RR execution (with full SVG) -->
+<section id="task-5">
+  <style>
+    /* ---- Scoped only to #task-5 ---- */
+    #task-5{
+      --card:#101628; --border:rgba(255,255,255,.08); --fg:#e5eefc; --muted:#9fb1d6;
+    }
+    #task-5 .card{
+      display:grid; align-items:center; gap:24px;
+      grid-template-columns: minmax(320px,0.7fr) 1.3fr; /* left text, right big SVG */
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; padding:24px;
+    }
+    #task-5 .title-chip{
+      display:inline-block; padding:8px 12px; border-radius:999px;
+      font:800 14px ui-sans-serif,system-ui; letter-spacing:.2px;
+      background:linear-gradient(135deg,#0ea5e9,#22d3ee); color:#07131b; margin-bottom:12px;
+    }
+    #task-5 p{ margin:0; color:var(--fg); line-height:1.6 }
+
+    #task-5 .media-right{ display:flex; justify-content:center }
+    #task-5 .svg-wrap{
+      width:100%; aspect-ratio:1200/420;
+      border-radius:14px; overflow:hidden; background:#081326;
+      box-shadow:0 8px 32px rgba(0,0,0,.35); outline:1px solid rgba(255,255,255,.05);
+    }
+    #task-5 svg{ width:100%; height:100%; display:block }
+
+    @media (max-width:900px){
+      #task-5 .card{ grid-template-columns:1fr }
+      #task-5 .svg-wrap{ aspect-ratio:1200/520 }
+    }
+    @media (prefers-reduced-motion:reduce){
+      #task-5 .march, #task-5 .pulse, #task-5 .sliceMove{ animation:none !important }
+    }
+  </style>
+
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">ROUND ROBIN-ийн ажиллагаа</div>
+      <p>
+        Бүх процесс тогтмол <em>time quantum (q)</em>-аар ээлжилж CPU авч, хугацаа дуусахад дараагийнх руу шилжинэ.
+        Тэгш хуваарилалттай, урт ажилд дарагдахгүй. Доор <strong>q=2</strong> жишээг үзүүлэв.
+      </p>
+    </div>
+
+    <figure class="media-right lg" aria-label="Round Robin demo SVG">
+      <div class="svg-wrap">
+        <svg viewBox="0 0 1200 420" role="img" aria-labelledby="rrTitle">
+          <title id="rrTitle">Round Robin — q=2, эргэлдэх ээлжлэл</title>
+          <defs>
+            <!-- Palettes -->
+            <linearGradient id="cpuGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#60a5fa"/>
+            </linearGradient>
+            <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+            </linearGradient>
+            <linearGradient id="p2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/>
+            </linearGradient>
+            <linearGradient id="p3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#93c5fd"/><stop offset="1" stop-color="#3b82f6"/>
+            </linearGradient>
+            <linearGradient id="p4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+
+            <!-- text styles inside SVG -->
+            <style>
+              .lbl{font:700 16px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#dbeafe}
+              .muted{font:600 12px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#9fb1d6}
+              .chip{font:800 14px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#0b1220}
+              .march{stroke-dasharray:10 10; animation:march 7s linear infinite}
+              @keyframes march{to{stroke-dashoffset:-460}}
+              .pulse{animation:pulse 2.2s ease-in-out infinite}
+              @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+
+              /* moving slice on gantt to illustrate quantum */
+              .sliceMove{animation:slice 6s ease-in-out infinite}
+              @keyframes slice{
+                0%   {width:0}
+                10%  {width:12%}
+                20%  {transform:translateX(12%)}
+                30%  {transform:translateX(12%); width:24%}
+                40%  {transform:translateX(24%)}
+                50%  {transform:translateX(24%); width:36%}
+                60%  {transform:translateX(36%)}
+                70%  {transform:translateX(36%); width:48%}
+                80%  {transform:translateX(48%)}
+                90%  {transform:translateX(48%); width:60%}
+                100% {transform:translateX(60%); width:60%}
+              }
+            </style>
+          </defs>
+
+          <!-- Queue (left) -->
+          <g transform="translate(28,32)">
+            <text class="lbl" x="0" y="-10">RR — q = 2</text>
+            <rect x="0" y="0" width="520" height="106" rx="18" ry="18" fill="#0b1730" stroke="#274274"/>
+            <g transform="translate(18,22)">
+              <rect rx="12" ry="12" width="86" height="40" fill="url(#p1)"/>
+              <text class="chip" x="43" y="26" text-anchor="middle">P1</text>
+              <text class="muted" x="0" y="66">burst: 4</text>
+            </g>
+            <g transform="translate(118,22)">
+              <rect rx="12" ry="12" width="86" height="40" fill="url(#p2)"/><text class="chip" x="43" y="26" text-anchor="middle">P2</text>
+              <text class="muted" x="0" y="66">burst: 3</text>
+            </g>
+            <g transform="translate(218,22)">
+              <rect rx="12" ry="12" width="86" height="40" fill="url(#p3)"/><text class="chip" x="43" y="26" text-anchor="middle">P3</text>
+              <text class="muted" x="0" y="66">burst: 5</text>
+            </g>
+            <g transform="translate(318,22)">
+              <rect rx="12" ry="12" width="86" height="40" fill="url(#p4)"/><text class="chip" x="43" y="26" text-anchor="middle">P4</text>
+              <text class="muted" x="0" y="66">burst: 2</text>
+            </g>
+          </g>
+
+          <!-- Flow to CPU -->
+          <path d="M 560 85 H 840" class="march" stroke="#88a5ff" stroke-width="4" fill="none" opacity=".85"/>
+
+          <!-- CPU box -->
+          <g transform="translate(700,28)">
+            <rect x="0" y="0" width="200" height="200" rx="26" ry="26" fill="url(#cpuGrad)"/>
+            <rect x="14" y="14" width="172" height="172" rx="20" ry="20" fill="#0e2730" opacity=".9" stroke="#0ea5e9"/>
+            <circle cx="100" cy="100" r="14" fill="#22d3ee" class="pulse"/>
+            <text class="lbl" x="100" y="226" text-anchor="middle">CPU</text>
+          </g>
+
+          <!-- Gantt timeline (RR order P1→P2→P3→P4→P1→...) -->
+          <g transform="translate(28,240)">
+            <text class="muted" x="0" y="-12">Gantt (RR, q=2): P1 | P2 | P3 | P4 | P1 | P3 | P3</text>
+            <rect x="0" y="0" width="820" height="26" rx="12" ry="12" fill="#0b152a" stroke="#2b4c82"/>
+            <!-- segments (approximate order for bursts: P1:4, P2:3, P3:5, P4:2) -->
+            <!-- each segment ~ two units -->
+            <g>
+              <rect x="0"    y="0" width="90"  height="26" fill="url(#p1)" rx="12" ry="12"/>
+              <rect x="90"   y="0" width="90"  height="26" fill="url(#p2)"/>
+              <rect x="180"  y="0" width="90"  height="26" fill="url(#p3)"/>
+              <rect x="270"  y="0" width="90"  height="26" fill="url(#p4)"/>
+              <rect x="360"  y="0" width="90"  height="26" fill="url(#p1)"/>
+              <rect x="450"  y="0" width="90"  height="26" fill="url(#p3)"/>
+              <rect x="540"  y="0" width="90"  height="26" fill="url(#p3)"/>
+            </g>
+            <!-- moving translucent slice to explain quantum -->
+            <rect x="0" y="0" height="26" rx="12" ry="12" fill="#ffffff" opacity=".08" class="sliceMove"/>
+          </g>
+
+          <!-- Legend -->
+          <g transform="translate(900,252)">
+            <text class="lbl" x="0" y="0">Legend</text>
+            <g transform="translate(0,12)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p1)"/><text class="muted" x="26" y="11">P1</text>
+            </g>
+            <g transform="translate(0,32)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p2)"/><text class="muted" x="26" y="11">P2</text>
+            </g>
+            <g transform="translate(0,52)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p3)"/><text class="muted" x="26" y="11">P3</text>
+            </g>
+            <g transform="translate(0,72)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p4)"/><text class="muted" x="26" y="11">P4</text>
+            </g>
+            <g transform="translate(0,96)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#cpuGrad)"/><text class="muted" x="26" y="11">CPU/flow</text>
+            </g>
+            <g transform="translate(0,120)">
+              <rect width="18" height="12" rx="3" ry="3" fill="#fff" opacity=".15"/><text class="muted" x="26" y="11">time quantum (q=2)</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </figure>
+    <img src="/assets/26.webp" alt="SJF concept image" style="max-width: 700px; margin-left: 490px;">
+  </div>
+</section>
+
+
+<!-- Slide 6 — Priority -->
+<section id="task-6">
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">PRIORITY гэж юу вэ?</div>
+      <p>Процесс бүрт эрхийн түвшин өгч, өндөр эрхтэй нь түрүүлж гүйцэтгэнэ.  
+        Starvation-ыг багасгахын тулд aging ашигладаг.</p>
+    </div>
+    <figure class="media-right lg">
+      <img src="/assets/unnamed.webp" alt="Priority concept">
+    </figure>
+  </div>
+</section>
+
+<!-- Slide 7 — Priority execution -->
+<section id="task-7">
+  <style>
+    /* ---- Scoped only to #task-7 ---- */
+    #task-7{
+      --card:#101628; --border:rgba(255,255,255,.10);
+      --fg:#e5eefc; --muted:#a7b4d8;
+    }
+    #task-7 .card{
+      display:grid; align-items:center; gap:24px;
+      grid-template-columns: minmax(320px,0.7fr) 1.3fr; /* left text, right big SVG */
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; padding:24px;
+    }
+    #task-7 .title-chip{
+      display:inline-block; padding:8px 12px; border-radius:999px;
+      font:800 14px ui-sans-serif,system-ui; letter-spacing:.2px;
+      background:linear-gradient(135deg,#0ea5e9,#22d3ee); color:#07131b; margin-bottom:12px;
+    }
+    #task-7 p{ margin:0; color:var(--fg); line-height:1.6 }
+
+    #task-7 .media-right{ display:flex; justify-content:center }
+    #task-7 .svg-wrap{
+      width:100%; aspect-ratio:1200/420; /* big, responsive */
+      border-radius:14px; overflow:hidden; background:#0b1224;
+      box-shadow:0 8px 32px rgba(0,0,0,.35); outline:1px solid rgba(255,255,255,.06);
+    }
+    #task-7 svg{ width:100%; height:100%; display:block }
+
+    @media (max-width:900px){
+      #task-7 .card{ grid-template-columns:1fr }
+      #task-7 .svg-wrap{ aspect-ratio:1200/520 }
+    }
+    @media (prefers-reduced-motion:reduce){
+      #task-7 .pulse{ animation:none !important }
+    }
+  </style>
+
+  <div class="card content-slide">
+    <div class="left">
+      <div class="title-chip">PRIORITY-ийн үйл ажиллагаа</div>
+      <p>
+        <strong>Non-preemptive Priority</strong>: <em>бага тоо = өндөр эрх</em>. Өндөр эрхтэй процесс эхэлж гүйцэтгэгдэнэ.
+        Давуу тал — чухал ажлыг түрүүлнэ. Сул тал — урт/бага эрхтэй ажил <em>starvation</em>-д өртөж магадгүй (aging тустай).
+      </p>
+    </div>
+
+    <figure class="media-right lg" aria-label="Priority Scheduling SVG">
+      <div class="svg-wrap">
+        <svg viewBox="0 0 1200 420" role="img" aria-labelledby="prioTitle">
+          <title id="prioTitle">Priority Scheduling — lower number = higher priority</title>
+          <defs>
+            <!-- Color scales -->
+            <linearGradient id="cpuGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#60a5fa"/>
+            </linearGradient>
+            <linearGradient id="p1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+            </linearGradient>
+            <linearGradient id="p2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#a78bfa"/><stop offset="1" stop-color="#7c3aed"/>
+            </linearGradient>
+            <linearGradient id="p3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#93c5fd"/><stop offset="1" stop-color="#3b82f6"/>
+            </linearGradient>
+            <linearGradient id="p4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/>
+            </linearGradient>
+
+            <!-- Typography inside SVG -->
+            <style>
+              .lbl{font:700 16px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#dbeafe}
+              .muted{font:600 12px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#a7b4d8}
+              .chip{font:800 14px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#0b1220}
+              .sub{font:700 12px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#a7b4d8}
+              .tick{font:700 11px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#9fb1d6}
+              .pulse{animation:pulse 2.2s ease-in-out infinite}
+              @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+            </style>
+          </defs>
+
+          <!-- Ready queue -->
+          <g transform="translate(28,28)">
+            <text class="lbl" x="0" y="-10">Priority — бага тоо = өндөр эрх (non-preemptive)</text>
+            <rect x="0" y="0" width="540" height="138" rx="18" ry="18" fill="#0b1730" stroke="#274274"/>
+            <!-- P2 (prio 1, burst 3) -->
+            <g transform="translate(16,22)">
+              <rect rx="12" ry="12" width="108" height="48" fill="url(#p2)"/>
+              <text class="chip" x="54" y="30" text-anchor="middle">P2</text>
+              <text class="sub" x="0" y="70">prio: 1 • burst: 3</text>
+            </g>
+            <!-- P1 (prio 2, burst 4) -->
+            <g transform="translate(144,22)">
+              <rect rx="12" ry="12" width="108" height="48" fill="url(#p1)"/>
+              <text class="chip" x="54" y="30" text-anchor="middle">P1</text>
+              <text class="sub" x="0" y="70">prio: 2 • burst: 4</text>
+            </g>
+            <!-- P3 (prio 3, burst 2) -->
+            <g transform="translate(272,22)">
+              <rect rx="12" ry="12" width="108" height="48" fill="url(#p3)"/>
+              <text class="chip" x="54" y="30" text-anchor="middle">P3</text>
+              <text class="sub" x="0" y="70">prio: 3 • burst: 2</text>
+            </g>
+            <!-- P4 (prio 4, burst 5) -->
+            <g transform="translate(400,22)">
+              <rect rx="12" ry="12" width="108" height="48" fill="url(#p4)"/>
+              <text class="chip" x="54" y="30" text-anchor="middle">P4</text>
+              <text class="sub" x="0" y="70">prio: 4 • burst: 5</text>
+            </g>
+          </g>
+
+          <!-- Flow arrow -->
+          <g transform="translate(590,78)">
+            <path d="M 0 14 H 180" stroke="#7fb2ff" stroke-width="4" fill="none"/>
+            <polygon points="180,14 168,8 168,20" fill="#7fb2ff"/>
+          </g>
+
+          <!-- CPU block -->
+          <g transform="translate(780,24)">
+            <rect x="0" y="0" width="200" height="200" rx="26" ry="26" fill="url(#cpuGrad)"/>
+            <rect x="14" y="14" width="172" height="172" rx="20" ry="20" fill="#0e2730" opacity=".92" stroke="#0ea5e9"/>
+            <circle cx="100" cy="100" r="14" fill="#22d3ee" class="pulse"/>
+            <text class="lbl" x="100" y="226" text-anchor="middle">CPU</text>
+          </g>
+
+          <!-- Gantt timeline (exact ticks: 0,3,7,9,14) -->
+          <g transform="translate(28,248)">
+            <text class="muted" x="0" y="-12">Gantt (Priority, non-preemptive): P2 → P1 → P3 → P4</text>
+            <!-- bar bg -->
+            <rect x="0" y="0" width="820" height="30" rx="12" ry="12" fill="#0b152a" stroke="#2b4c82"/>
+            <!-- unit width = 820 / 14 ≈ 58.57 -->
+            <!-- P2: 3u -->
+            <rect x="0"   y="0" width="176" height="30" fill="url(#p2)" rx="12" ry="12"/>
+            <!-- P1: 4u -->
+            <rect x="176" y="0" width="234" height="30" fill="url(#p1)"/>
+            <!-- P3: 2u -->
+            <rect x="410" y="0" width="118" height="30" fill="url(#p3)"/>
+            <!-- P4: 5u -->
+            <rect x="528" y="0" width="292" height="30" fill="url(#p4)"/>
+            <!-- ticks -->
+            <g>
+              <line x1="0"   y1="34" x2="0"   y2="48" stroke="#3a558a"/>
+              <text class="tick" x="0"   y="62">0</text>
+
+              <line x1="176" y1="34" x2="176" y2="48" stroke="#3a558a"/>
+              <text class="tick" x="176" y="62">3</text>
+
+              <line x1="410" y1="34" x2="410" y2="48" stroke="#3a558a"/>
+              <text class="tick" x="410" y="62">7</text>
+
+              <line x1="528" y1="34" x2="528" y2="48" stroke="#3a558a"/>
+              <text class="tick" x="528" y="62">9</text>
+
+              <line x1="820" y1="34" x2="820" y2="48" stroke="#3a558a"/>
+              <text class="tick" x="820" y="62" text-anchor="end">14</text>
+            </g>
+          </g>
+
+          <!-- Legend -->
+          <g transform="translate(900,252)">
+            <text class="lbl" x="0" y="0">Legend</text>
+            <g transform="translate(0,12)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p2)"/><text class="muted" x="26" y="11">P2 (prio 1, 3)</text>
+            </g>
+            <g transform="translate(0,32)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p1)"/><text class="muted" x="26" y="11">P1 (prio 2, 4)</text>
+            </g>
+            <g transform="translate(0,52)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p3)"/><text class="muted" x="26" y="11">P3 (prio 3, 2)</text>
+            </g>
+            <g transform="translate(0,72)">
+              <rect width="18" height="12" rx="3" ry="3" fill="url(#p4)"/><text class="muted" x="26" y="11">P4 (prio 4, 5)</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+    </figure>
+    <img src="/assets/28.webp" alt="SJF concept image" style="max-width: 700px; margin-left: 490px;">
+  </div>
+</section>
+
+
+<section id="sim">
+  <style>
+/* ---- scoped to #sim only (final clean) ---- */
+#sim{
+  /* Design tokens */
+  --bg:#0b0f1a;
+  --card:#101628;
+  --panel:#0b1220;
+  --chip:#0b1730;
+  --border:rgba(255,255,255,.10);
+  --line:#22355e;
+  --fg:#e5eefc;
+  --muted:#9fb1d6;
+  --accent:#22d3ee;
+  --accent-2:#60a5fa;
+  --danger:#f87171;
+
+  --r:16px;          /* radius */
+  --pad:16px;        /* panel padding */
+  --gap:12px;        /* grid gap */
+  --shadow:0 8px 28px rgba(0,0,0,.35);
+}
+#sim .card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  box-shadow:var(--shadow);
+}
+
+/* Header */
+#sim .sim-head{ padding:20px; margin-bottom:16px }
+#sim h2{ margin:0 0 6px; color:var(--fg); letter-spacing:.2px }
+#sim .muted{ color:var(--muted); margin:0 }
+
+/* Form */
+#sim .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end }
+#sim label{ display:block; font:600 12px ui-sans-serif,system-ui; color:var(--muted); margin:0 0 6px }
+#sim input{
+  appearance:none; outline:none;
+  background:var(--panel);
+  border:1px solid var(--border);
+  color:var(--fg);
+  border-radius:12px;
+  padding:9px 12px;
+  min-width:110px;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+#sim input:focus-visible{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(34,211,238,.22);
+}
+
+/* Buttons */
+#sim .btn{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#07131b;
+  border:0;
+  padding:10px 14px;
+  border-radius:12px;
+  font:800 13px ui-sans-serif,system-ui;
+  cursor:pointer;
+  transition:transform .06s ease, filter .15s ease;
+}
+#sim .btn:hover{ filter:brightness(1.08) }
+#sim .btn:active{ transform:translateY(1px) }
+#sim .btn.ghost{
+  background:var(--panel);
+  color:var(--fg);
+  border:1px solid var(--border);
+}
+
+/* Algo segmented */
+#sim .segmented{
+  display:flex; gap:6px; padding:6px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+}
+#sim .segBtn{
+  background:transparent; color:var(--fg);
+  border:0; padding:8px 12px;
+  border-radius:10px; cursor:pointer;
+  font-weight:700; letter-spacing:.2px;
+}
+#sim .segBtn:hover{ background:#0f1a2f }
+#sim .segBtn.active{
+  background:#122138; box-shadow:inset 0 0 0 1px var(--line);
+}
+
+/* Controls row */
+#sim .sim-panel{ padding:var(--pad) }
+#sim .sim-controls{
+  display:flex; justify-content:space-between; align-items:flex-end;
+  gap:16px; margin-bottom:16px;
+}
+
+/* Range (speed) */
+#sim input[type="range"]{
+  width:160px; height:6px; background:#0e1a33;
+  border-radius:999px; outline:none; border:1px solid var(--border);
+}
+#sim input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  border:0; box-shadow:0 0 0 2px #0e1a33;
+}
+
+/* Grid */
+#sim .sim-grid{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap:16px }
+#sim .sim-left{ display:flex; flex-direction:column; gap:12px }
+
+/* Table */
+#sim .table{
+  border:1px solid var(--border);
+  border-radius:12px; overflow:hidden;
+  background:var(--panel);
+}
+#sim .trow{
+  display:grid; grid-template-columns: 1.1fr 1fr 1fr 1fr .7fr;
+  gap:10px; padding:10px 12px; align-items:center;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+#sim .trow:nth-child(odd){ background:#0e1730 }
+#sim .trow.head{
+  background:#0b152a; font-weight:800; color:#dbeafe;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+#sim .trow .del button{
+  background:#2a334d; color:#e5eefc; border:0; padding:6px 8px;
+  border-radius:8px; cursor:pointer;
+}
+#sim .trow .del button:hover{ background:#3b4566 }
+#sim .trow .del button:active{ transform:translateY(1px) }
+
+/* Legends */
+#sim .legend{ display:flex; align-items:center; gap:12px; color:var(--muted); font-size:12px }
+#sim .legend .dot{ width:14px; height:14px; border-radius:999px; border:1px solid var(--border); display:inline-block }
+
+/* Live panes */
+#sim .viz{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+#sim .pane{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:12px; padding:12px; min-height:96px;
+}
+#sim .pane h4{ margin:0 0 8px; color:var(--fg); font:700 14px ui-sans-serif }
+#sim .chips{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; min-height:34px }
+#sim .chip{
+  background:var(--chip);
+  border:1px solid var(--line);
+  color:#dbeafe;
+  padding:6px 10px; border-radius:999px; font:800 12px ui-sans-serif;
+}
+#sim .chip .sub{ font:700 11px ui-sans-serif; color:var(--muted); margin-left:6px }
+
+/* CPU pane */
+#sim .cpu-box{ display:flex; align-items:center; gap:12px }
+#sim .cpu{
+  width:70px; height:70px; border-radius:16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:grid; place-items:center; color:#07131b; font:800 12px ui-sans-serif;
+  box-shadow:var(--shadow);
+}
+#sim .cpuState{ display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+#sim .tag{
+  background:#0e1a33; border:1px solid var(--line);
+  color:#cbd5e1; border-radius:8px; padding:4px 8px;
+  font:700 11px ui-sans-serif
+}
+
+/* Result / Gantt */
+#sim .result{ margin-top:12px }
+#sim .sim-title{ display:flex; align-items:center; justify-content:space-between; gap:12px }
+#sim .pill{
+  background:#0b152a; border:1px solid var(--border);
+  color:#dbeafe; border-radius:999px; padding:6px 10px;
+  font:700 12px ui-sans-serif
+}
+#sim .gantt{
+  display:flex; gap:2px; overflow-x:auto;
+  padding:8px; background:var(--panel);
+  border:1px solid var(--border); border-radius:10px; min-height:44px
+}
+#sim .slice{
+  display:flex; align-items:center; justify-content:center;
+  min-width:34px; height:28px; border-radius:8px;
+  color:#07131b; font:800 11px ui-sans-serif;
+  transition: width .2s linear, transform .08s ease;
+  background:linear-gradient(135deg,#22d3ee,#60a5fa);
+}
+#sim .slice.idle{
+  background:#60a5fa2a; color:#e5eefc; border:1px dashed #60a5fa66
+}
+#sim .slice.ctx{
+  background:#a78bfa2a; color:#e5eefc; border:1px dashed #a78bfa66
+}
+#sim .slice:hover{ transform:translateY(-1px) }
+#sim .tick{ color:var(--muted); font:700 11px ui-sans-serif; margin-top:6px; white-space:pre }
+
+/* Event log */
+#sim .elog{
+  background:var(--panel); border:1px solid var(--border);
+  border-radius:10px; padding:8px; max-height:160px; overflow:auto;
+  font:600 12px ui-sans-serif; color:#cbd5e1; line-height:1.5
+}
+#sim .elog b{ color:#e5eefc }
+
+/* Scrollbar (webkit) */
+#sim ::-webkit-scrollbar{ height:8px; width:8px }
+#sim ::-webkit-scrollbar-thumb{ background:#2a3a62; border-radius:999px }
+#sim ::-webkit-scrollbar-track{ background:#0b1326 }
+
+/* Responsive */
+@media (max-width: 1080px){
+  #sim .sim-grid{ grid-template-columns:1fr }
+}
+@media (max-width: 720px){
+  #sim .viz{ grid-template-columns:1fr }
+  #sim input{ min-width:90px }
+}
+
+/* Motion-reduce */
+@media (prefers-reduced-motion:reduce){
+  #sim .btn, #sim .slice{ transition:none }
+}
+/* Single horizontal scrollbar around Gantt+ticks */
+#sim .gantt-scroll{
+  display:block;
+  max-width:100%;
+  overflow-x:auto;
+  overflow-y:hidden;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:var(--panel);
+  padding:6px 8px;
+  scrollbar-gutter: stable both-edges;
+}
+
+/* both rows grow wide together */
+#sim .gantt-scroll > .gantt,
+#sim .gantt-scroll > .tick{
+  width:max-content;
+  min-width:100%;
+  margin:0;
+}
+
+/* inner gantt has no own scroll/borders */
+#sim .gantt-scroll > .gantt{
+  overflow:visible !important;
+  border:0 !important;
+  padding:8px 0 0 !important;
+  background:transparent !important;
+}
+
+/* ticks line inside wrapper */
+#sim .gantt-scroll > .tick{
+  margin-top:6px;
+  color:var(--muted);
+  white-space:pre;
+}
+
+  </style>
+
+<div class="card sim-head">
+    <h2>CPU Төлөвлөлтийн Симуляци</h2>
+    <p class="muted">Процессуудыг оруулж, алгоритмаа сонгоод <b>Run</b> дар. (arrival=орсон дарааллаараа, burst=ажиллах хугацаа, priority бага байх тусам өндөр эрх)</p>
+
+    <form id="procForm" class="row" onsubmit="return false;">
+      <div><label>ID</label><input id="pid" placeholder="P1" /></div>
+      <div><label>Arrival</label><input id="arrival" type="number" min="0" step="1" placeholder="0" /></div>
+      <div><label>Burst</label><input id="burst" type="number" min="1" step="1" placeholder="5" /></div>
+      <div><label>Priority</label><input id="priority" type="number" min="0" step="1" placeholder="1" /></div>
+      <div class="row right">
+        <button id="add" class="btn">Нэмэх</button>
+        <button id="seed" class="btn ghost" type="button">Жишээ</button>
+        <button id="clear" class="btn ghost" type="button">Цэвэрлэх</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="card sim-panel">
+    <div class="sim-controls">
+      <div class="segmented" id="algos">
+        <button class="segBtn active" data-a="fcfs">FCFS</button>
+        <button class="segBtn" data-a="sjf">SJF</button>
+        <button class="segBtn" data-a="priority">Priority</button>
+        <button class="segBtn" data-a="rr">Round-Robin</button>
+      </div>
+
+      <div class="row" style="align-items:flex-end">
+        <div>
+          <label>Quantum</label>
+          <input id="quantum" type="number" min="1" step="1" value="2" style="max-width:110px">
+        </div>
+        <div class="controls">
+          <button class="btn" id="run">Run</button>
+          <button class="btn ghost" id="pause" type="button">Pause</button>
+          <button class="btn ghost" id="step" type="button">Step</button>
+          <label class="muted">Speed</label>
+          <input type="range" id="speed" min="50" max="800" value="220" />
+        </div>
+      </div>
+    </div>
+
+    <div class="viz">
+      <div class="pane">
+        <h4>Ready Queue</h4>
+        <div id="readyQ" class="chips"></div>
+      </div>
+      <div class="pane">
+        <h4>CPU / Context</h4>
+        <div class="cpu-box">
+          <div class="cpu">CPU</div>
+          <div class="cpuState">
+            <div class="tag" id="cpuNow">—</div>
+            <div class="tag" id="qLeft" style="display:none">q: —</div>
+            <div class="tag" id="ctxState" style="display:none">context switch…</div>
+          </div>
+        </div>
+      </div>
+      <div class="pane">
+        <h4>Done</h4>
+        <div id="doneQ" class="chips"></div>
+      </div>
+      <div class="pane">
+        <h4>Events</h4>
+        <div id="elog" class="elog"></div>
+      </div>
+    </div>
+
+    <div class="sim-grid" style="margin-top:12px;margin-bottom:50px">
+      <div class="sim-left">
+        <div class="table" id="list">
+          <div class="trow head"><div>ID</div><div>Arrival</div><div>Burst</div><div>Priority</div><div>Del</div></div>
+        </div>
+        <div class="legend">
+          <span class="dot" style="background:#60a5fa55"></span> Idle
+          <span class="dot" style="background:#a78bfa55"></span> Context
+        </div>
+      </div>
+
+        <div class="sim-right">
+        <div class="card result" id="result" style="display:none">
+            <div class="sim-title">
+            <h3 style="margin:8px 0">Gantt диаграмм</h3>
+            <div class="pill algo-pill" id="algoShow"></div>
+            </div>
+
+            <!-- NEW: scroll wrapper -->
+            <div class="gantt-scroll">
+            <div id="gantt" class="gantt"></div>
+            <div id="ticks" class="tick"></div>
+            </div>
+
+            <div class="stats" id="stats" style="margin-top:8px"></div>
+        </div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- ====== END SLIDE ====== -->
+<section id="outro" class="slide">
+  <div class="card outro-content">
+    <h1>Баярлалаа!</h1>
+    <p>
+      <b>2-р багийнхан</b> байлаа.<br>
+      Анхаарал хандуулсанд баярлалаа 💡
+    </p>
+  </div>
+</section>
+
+<style>
+  /* -------- Outro Slide Styles -------- */
+  #outro.slide {
+    display: none;
+    position: relative;
+    min-height: 90vh;
+    text-align: center;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #0b1220 0%, #060910 100%);
+    color: #e5eefc;
+    animation: fadeIn .6s ease-out;
+  }
+  #outro.slide.active { display: grid; place-items: center; }
+
+  #outro h1 {
+    font-size: clamp(48px, 6vw, 92px);
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #22d3ee, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glowText 4s ease-in-out infinite;
+  }
+  #outro p {
+    font-size: clamp(16px, 2vw, 22px);
+    color: #9fb1d6;
+    margin-top: 18px;
+    line-height: 1.6;
+  }
+  @keyframes glowText {
+    0%,100% { filter: drop-shadow(0 0 4px #22d3ee) drop-shadow(0 0 12px #60a5fa); }
+    50% { filter: drop-shadow(0 0 12px #a78bfa) drop-shadow(0 0 24px #60a5fa); }
+  }
+
+  /* bubbles */
+  #outro .bubble {
+    position: absolute;
+    bottom: -60px;
+    background: radial-gradient(circle at 30% 30%, #22d3ee, transparent 70%);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: rise 14s linear infinite;
+  }
+  @keyframes rise {
+    0% { transform: translateY(0) scale(0.8); opacity: 0.5; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+  }
+
+  @keyframes fadeIn { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none} }
+</style>
+
+<script>
+  // 👇 bubble генератор зөвхөн outro дээр ажиллана
+  const outro = document.getElementById('outro');
+  for (let i = 0; i < 18; i++) {
+    const b = document.createElement('span');
+    b.className = 'bubble';
+    const size = Math.random() * 60 + 10;
+    b.style.width = `${size}px`;
+    b.style.height = `${size}px`;
+    b.style.left = `${Math.random() * 100}%`;
+    b.style.animationDelay = `${Math.random() * 8}s`;
+    b.style.background = `radial-gradient(circle at 30% 30%, ${
+      ['#22d3ee','#60a5fa','#a78bfa'][Math.floor(Math.random()*3)]
+    }, transparent 70%)`;
+    outro.appendChild(b);
+  }
+</script>
+
+
+<footer class="foot">
+  <div class="row">
+    <button id="prev" class="btn">← Prev</button>
+    <button id="next" class="btn">Next →</button>
+  </div>
+  <div class="progress">
+    <span id="ctr">1</span> / <span id="tot">4</span>
+    <div class="bar"><div class="bar-fill" id="bar"></div></div>
+  </div>
+  <div class="muted">Keyboard: ← → • F for fullscreen</div>
+</footer>
+<script src="/hergtei/script.js"></script>
+</body>
+</html>
