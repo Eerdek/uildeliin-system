@@ -1,42 +1,175 @@
 <!DOCTYPE html>
 <html lang="mn">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Процесс & Төлөвлөлт</title>
-<link rel="stylesheet" href="/hergtei/styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Процесс ба Салбар процесс</title>
+  <link rel="stylesheet" href="/hergtei/styles.css" />
 </head>
 <body>
-<div class="bg"></div>
+  <!-- Background -->
+  <div class="bg"></div>
 
-<header class="top card">
-  <div class="brand">
-    <div class="logo">⚛️</div><div>2-р баг</div>
-  </div>
-  <nav class="nav">
-    <a href="#" data-goto="home" class="active">HOME</a>
-    <a href="#" data-goto="about">Процесс гэж юу вэ?</a>
-    <a href="#" data-goto="content">Салбар процесс</a>
-    <a href="#" data-goto="sim">Процессын 4 хэрэгжүүлэлт</a>
-  </nav>
-</header>
+  <!-- Navigation bar -->
+  <header class="top card">
+    <div class="brand">
+      <div class="logo">⚛️</div>
+      <div>2-р баг</div>
+    </div>
+    <nav class="nav">
+      <a href="#" data-goto="home" class="active">Нүүр</a>
+      <a href="#" data-goto="about">Процесс</a>
+      <a href="#" data-goto="content">Салбар процесс</a>
+      <a href="#" data-goto="sim">Хэрэгжүүлэлт</a>
+    </nav>
+  </header>
 
+<!-- ====== HOME (Smooth & No Scroll Edition) ====== -->
 <section id="home" class="active">
+  <style>
+    html, body { overflow-x: hidden; }
+
+    /* Main hero section */
+    #home{
+      position:relative;
+      overflow:hidden;
+      isolation:isolate;
+    }
+    #home .hero{
+      position:relative;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding: clamp(28px, 6vw, 56px) 16px;
+      min-height: clamp(360px, 62vh, 720px);
+      border-radius: 24px;
+      background:
+        radial-gradient(1200px 600px at -10% -10%, rgba(34,211,238,.08), transparent 60%),
+        radial-gradient(1200px 600px at 110% 10%, rgba(167,139,250,.08), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.03), transparent);
+      box-shadow: 0 24px 80px rgba(0,0,0,.45);
+    }
+    #home .hero > *{ position:relative; z-index:2 }
+
+    #home .huge{
+      font-size: clamp(34px, 8vw, 78px);
+      line-height:1.05;
+      margin:.1em 0;
+      letter-spacing:.3px;
+      font-weight:900;
+      background: conic-gradient(from 0deg, #22d3ee, #60a5fa, #a78bfa, #22d3ee);
+      -webkit-background-clip:text;
+      background-clip:text;
+      -webkit-text-fill-color:transparent;
+      filter: drop-shadow(0 8px 28px rgba(96,165,250,.22));
+      animation: homeGlowSoft 7s ease-in-out infinite;
+    }
+    @keyframes homeGlowSoft{
+      0%,100%{ filter: drop-shadow(0 8px 28px rgba(34,211,238,.18)) }
+      50%{ filter: drop-shadow(0 10px 36px rgba(96,165,250,.26)) }
+    }
+
+    #home .muted{ color:#bcd3ff; opacity:.95; font-size:clamp(14px,2.2vw,18px) }
+    #home .chip{
+      display:inline-grid;
+      place-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      font:800 12px ui-sans-serif,system-ui;
+      background:linear-gradient(135deg,#0ea5e9,#22d3ee);
+      color:#07131b;
+      box-shadow:0 8px 28px rgba(34,211,238,.35);
+      margin-top:8px;
+    }
+
+    /* Background SVG */
+    #home .hero-art{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      opacity:.22;
+      pointer-events:none;
+      transform:translateZ(0);
+      filter:saturate(1.05) contrast(1.02);
+    }
+
+    #home svg .blob{ transform-origin:center; animation: float 18s ease-in-out infinite }
+    #home svg .b2 { animation-duration: 22s }
+    #home svg .b3 { animation-duration: 26s }
+
+    #home svg .ring{ stroke-linecap:round; animation: dash 11s linear infinite; opacity:.85 }
+    #home svg .cpu rect{ filter: drop-shadow(0 8px 30px rgba(0,0,0,.45)) }
+    #home svg .cpu circle{ transform-origin:center; animation:pulse 2.8s ease-in-out infinite }
+    #home svg .orbit-a{ animation: spin 15s linear infinite }
+    #home svg .orbit-b{ animation: spin 18s linear infinite reverse }
+    #home svg .orbit-c{ animation: spin 22s linear infinite }
+
+    #home svg .sheen{ mix-blend-mode:screen; animation:sweep 8.5s ease-in-out infinite; x:-180; width:360; }
+
+    @keyframes float{
+      0%{transform:translate(0,0) scale(1)}
+      50%{transform:translate(0,-18px) scale(1.05)}
+      100%{transform:translate(0,0) scale(1)}
+    }
+    @keyframes dash{ to{ stroke-dashoffset:-540 } }
+    @keyframes spin{ to{ transform: rotate(360deg) } }
+    @keyframes pulse{ 0%,100%{transform:scale(1);opacity:.88} 50%{transform:scale(1.22);opacity:1} }
+    @keyframes sweep{
+      0%{ transform:translateX(-35%); opacity:0 }
+      12%{ opacity:.06 }
+      45%{ transform:translateX(135%) }
+      100%{ transform:translateX(135%); opacity:0 }
+    }
+
+    /* entry anim */
+    #home .hero h1, #home .hero p, #home .chip{
+      opacity:0; transform:translateY(6px);
+      animation: fadeUp .55s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    #home .hero h1{ animation-delay:.05s }
+    #home .hero p{ animation-delay:.18s }
+    #home .chip{ animation-delay:.28s }
+    @keyframes fadeUp{ to{ opacity:1; transform:none } }
+
+    /* responsive */
+    @media (max-width:960px){
+      #home .hero-art{ opacity:.2 }
+      #home .muted{ opacity:.95 }
+    }
+
+    /* motion reduce */
+    @media (prefers-reduced-motion:reduce){
+      #home .hero h1, #home .hero p, #home .chip,
+      #home svg .blob, #home svg .ring, #home svg .cpu circle,
+      #home svg .orbit-a, #home svg .orbit-b, #home svg .orbit-c, #home svg .sheen{
+        animation:none !important; opacity:1; transform:none;
+      }
+    }
+  </style>
+
   <div class="card hero">
     <div>
-      <h1 class="huge">Процесс<br>болон салбар процесс</h1>
-      <p class="muted">Үйлдлийн систем — F.CSM302 | 2-р баг</p>
+      <span class="chip">ҮС — F.CSM302</span>
+      <h1 class="huge">Процесс<br>болон Салбар процесс</h1>
+      <p class="muted">Үйлдлийн системийн хичээл | 2-р баг</p>
     </div>
 
-    <!-- 🎨 Animated SVG background (decorative) -->
+    <!-- 🎨 Background SVG -->
     <svg class="hero-art" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <defs>
-        <!-- Soft glow -->
         <filter id="blur10" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="28" />
+          <feGaussianBlur stdDeviation="28"/>
         </filter>
-
-        <!-- Gradient fills -->
+        <filter id="goo">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="18" result="blur"/>
+          <feColorMatrix in="blur" mode="matrix"
+            values="1 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 28 -14" result="goo"/>
+          <feBlend in="SourceGraphic" in2="goo"/>
+        </filter>
         <radialGradient id="g1" cx="50%" cy="50%" r="0.6">
           <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.9"/>
           <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
@@ -49,8 +182,6 @@
           <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.9"/>
           <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
         </radialGradient>
-
-        <!-- Stroke gradient for the ring -->
         <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#22d3ee"/>
           <stop offset="50%" stop-color="#60a5fa"/>
@@ -58,53 +189,82 @@
         </linearGradient>
       </defs>
 
-      <!-- Floating gradient blobs -->
-      <g filter="url(#blur10)">
-        <circle class="blob b1" cx="280" cy="300" r="180" fill="url(#g1)"/>
-        <circle class="blob b2" cx="950" cy="180" r="200" fill="url(#g2)"/>
-        <circle class="blob b3" cx="820" cy="460" r="160" fill="url(#g3)"/>
+      <!-- Gooey blobs -->
+      <g filter="url(#goo)">
+        <g filter="url(#blur10)">
+          <circle class="blob b1" cx="260" cy="320" r="190" fill="url(#g1)"/>
+          <circle class="blob b2" cx="980" cy="180" r="220" fill="url(#g2)"/>
+          <circle class="blob b3" cx="820" cy="480" r="170" fill="url(#g3)"/>
+        </g>
       </g>
 
-      <!-- CPU chip + orbiting threads -->
-      <g class="cluster" transform="translate(600,300)">
-        <!-- glowing ring -->
-        <circle class="ring" r="185" fill="none" stroke="url(#ringGrad)" stroke-width="3"
-                stroke-dasharray="32 18" />
-        <!-- CPU core -->
-        <g class="cpu">
-          <rect x="-60" y="-60" width="120" height="120" rx="16"
-                fill="#0b1220" stroke="#3b82f6" stroke-width="2"/>
-          <!-- little pins -->
-          <g stroke="#1f2937" stroke-width="6">
-            <line x1="-76" y1="-36" x2="-60" y2="-36"/>
-            <line x1="-76" y1="-12" x2="-60" y2="-12"/>
-            <line x1="-76" y1="12"  x2="-60" y2="12"/>
-            <line x1="-76" y1="36"  x2="-60" y2="36"/>
-            <line x1="60" y1="-36" x2="76" y2="-36"/>
-            <line x1="60" y1="-12" x2="76" y2="-12"/>
-            <line x1="60" y1="12"  x2="76" y2="12"/>
-            <line x1="60" y1="36"  x2="76" y2="36"/>
+      <!-- CPU cluster -->
+      <g class="tilt">
+        <g class="cluster" transform="translate(600,300)">
+          <circle class="ring" r="195" fill="none" stroke="url(#ringGrad)" stroke-width="3.5" stroke-dasharray="34 18"/>
+          <g class="cpu">
+            <rect x="-70" y="-70" width="140" height="140" rx="18" fill="#0b1220" stroke="#3b82f6" stroke-width="2.2"/>
+            <g stroke="#1f2937" stroke-width="6">
+              <line x1="-86" y1="-40" x2="-70" y2="-40"/>
+              <line x1="-86" y1="-14" x2="-70" y2="-14"/>
+              <line x1="-86" y1="14"  x2="-70" y2="14"/>
+              <line x1="-86" y1="40"  x2="-70" y2="40"/>
+              <line x1="70" y1="-40" x2="86" y2="-40"/>
+              <line x1="70" y1="-14" x2="86" y2="-14"/>
+              <line x1="70" y1="14"  x2="86" y2="14"/>
+              <line x1="70" y1="40"  x2="86" y2="40"/>
+            </g>
+            <circle r="10" fill="#22d3ee" opacity="0.92"/>
           </g>
-          <!-- pulse -->
-          <circle r="8" fill="#22d3ee" opacity="0.85" />
-        </g>
 
-        <!-- orbit layer (three threads orbiting) -->
-        <g class="orbit orbit-a">
-          <circle class="node" r="10" fill="#60a5fa" />
-        </g>
-        <g class="orbit orbit-b">
-          <circle class="node" r="10" fill="#a78bfa" />
-        </g>
-        <g class="orbit orbit-c">
-          <circle class="node" r="10" fill="#22d3ee" />
+          <g class="orbit orbit-a"><circle class="node" r="12" fill="#60a5fa"/></g>
+          <g class="orbit orbit-b"><circle class="node" r="12" fill="#a78bfa"/></g>
+          <g class="orbit orbit-c"><circle class="node" r="12" fill="#22d3ee"/></g>
         </g>
       </g>
 
-      <!-- subtle scanline sheen -->
-      <rect class="sheen" x="-200" y="0" width="400" height="600" fill="white" opacity="0.06" />
+      <rect class="sheen" x="-180" y="0" width="360" height="600" fill="white" opacity="0.06"/>
     </svg>
   </div>
+
+  <script>
+    // Smooth tilt
+    (() => {
+      const root = document.querySelector('#home .tilt .cluster');
+      const hero = document.querySelector('#home .hero');
+      if (!root || !hero) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      let rect = hero.getBoundingClientRect();
+      const update = () => rect = hero.getBoundingClientRect();
+      window.addEventListener('resize', update, {passive:true});
+
+      let raf=null, rx=0, ry=0, tx=0, ty=0;
+      function onMove(e){
+        const c = e.touches?.[0] ?? e;
+        const px = (c.clientX - rect.left) / rect.width - 0.5;
+        const py = (c.clientY - rect.top) / rect.height - 0.5;
+        const MAX = 6;
+        const TR  = 8;
+        rx = py * MAX;  ry = -px * MAX;
+        tx = -px * TR;  ty = -py * TR;
+        if (!raf) raf = requestAnimationFrame(() => {
+          raf = null;
+          root.style.transform =
+            `translate3d(${tx}px, ${ty}px, 0) rotateX(${rx}deg) rotateY(${ry}deg)`;
+        });
+      }
+      function reset(){
+        root.style.transition = 'transform .45s cubic-bezier(.2,.8,.2,1)';
+        root.style.transform  = 'translate3d(0,0,0) rotateX(0) rotateY(0)';
+        setTimeout(() => root.style.transition = '', 450);
+      }
+      hero.addEventListener('mousemove', onMove);
+      hero.addEventListener('touchmove', onMove, {passive:true});
+      hero.addEventListener('mouseleave', reset);
+      hero.addEventListener('touchend',  reset);
+    })();
+  </script>
 </section>
 
 <!-- ====== ABOUT 1 — Q/A + Image ====== -->
@@ -306,100 +466,302 @@
 
 <!-- ===== TASK SLIDES: PROCESS SCHEDULING ===== -->
 
-<!-- Slide 1 — 4 algorithms overview -->
+<!-- Slide 1 — 4 algorithms overview (pro) -->
 <section id="task-1">
   <div class="card content-slide">
-    <div class="left">
+    <!-- LEFT: copy clear explanation -->
+    <div class="left reveal">
       <h2>Процессын 4 хэрэгжүүлэлт</h2>
       <ul class="bullets">
         <li><b>First In First Out (FIFO)</b></li>
         <li><b>Shortest Job First (SJF)</b></li>
         <li><b>Round Robin (RR)</b></li>
-        <li><b>Priority </b></li>
+        <li><b>Priority</b></li>
       </ul>
-      <p class="muted">Эдгээр нь процессуудыг CPU-д хуваарилах үндсэн төлөвлөлтийн аргууд юм.</p>
+      <p class="muted">Эдгээр нь CPU-гийн шугаман нөөцийг шударга, үр ашигтай хуваарилах үндсэн аргууд.</p>
     </div>
 
-    <!-- 🎨 Animated SVG illustration -->
-    <div class="media-right">
-      <svg class="sched-anim" viewBox="0 0 400 400" aria-hidden="true">
-        <!-- CPU core -->
-        <circle cx="200" cy="200" r="36" fill="#0b1220" stroke="#60a5fa" stroke-width="2" />
-        <circle class="pulse" cx="200" cy="200" r="12" fill="#22d3ee" />
+    <!-- RIGHT: animated, self-contained SVG (legend + orbits + mini Gantt) -->
+    <figure class="media-right">
+      <svg viewBox="0 0 640 420" role="img" aria-label="CPU ба 4 төрлийн төлөвлөлтийн үзүүлэн" style="width:100%;height:auto;display:block">
+        <defs>
+          <!-- Gradients -->
+          <linearGradient id="gFIFO" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#60a5fa"/><stop offset="1" stop-color="#22d3ee"/>
+          </linearGradient>
+          <linearGradient id="gSJF"  x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#34d399"/><stop offset="1" stop-color="#10b981"/>
+          </linearGradient>
+          <linearGradient id="gRR"   x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#db2777"/>
+          </linearGradient>
+          <linearGradient id="gPR"   x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/>
+          </linearGradient>
 
-        <!-- Orbiting processes -->
-        <g class="orbit orbit1">
-          <circle cx="200" cy="80" r="10" fill="#60a5fa" />
-        </g>
-        <g class="orbit orbit2">
-          <circle cx="320" cy="200" r="10" fill="#34d399" />
-        </g>
-        <g class="orbit orbit3">
-          <circle cx="200" cy="320" r="10" fill="#f472b6" />
-        </g>
-        <g class="orbit orbit4">
-          <circle cx="80" cy="200" r="10" fill="#f59e0b" />
+          <!-- Styles scoped to this SVG -->
+          <style>
+            .title   { font: 800 16px ui-sans-serif, system-ui, Segoe UI, Roboto; fill:#dbeafe }
+            .muted   { font: 600 13px ui-sans-serif, system-ui, Segoe UI, Roboto; fill:#9fb1d6 }
+            .chipTxt { font: 800 12px ui-sans-serif, system-ui, Segoe UI, Roboto; fill:#0b1220 }
+            .ring    { stroke:#20314f; stroke-width:1.5; fill:none; opacity:.65 }
+            .subring { stroke:#2a3d66; stroke-width:1; fill:none; opacity:.35 }
+            .pulse   { animation:pulse 2.2s ease-in-out infinite; transform-box:fill-box; transform-origin:center }
+            .spinA   { animation:spin 10s linear infinite }
+            .spinB   { animation:spin 13s linear infinite reverse }
+            .spinC   { animation:spin 16s linear infinite }
+            .dash    { stroke-dasharray:10 10; animation:march 12s linear infinite; opacity:.6 }
+            .barFill { height:14px; rx:8; ry:8 }
+            @keyframes pulse{ 0%,100%{transform:scale(1);opacity:.9} 50%{transform:scale(1.25);opacity:1} }
+            @keyframes spin { to { transform:rotate(360deg) } }
+            @keyframes march{ to { stroke-dashoffset:-500 } }
+            @keyframes grow { 0%{width:0} 40%{width:60%} 100%{width:60%} }
+          </style>
+        </defs>
+
+        <!-- LEGEND -->
+        <g transform="translate(24,16)">
+          <text class="title" x="0" y="0"></text>
+          <g transform="translate(0,10)">
+            <g transform="translate(0,14)">
+              <rect x="0" y="0" width="16" height="16" rx="4" fill="url(#gFIFO)"/><text class="muted" x="24" y="13">FIFO</text>
+            </g>
+            <g transform="translate(90,14)">
+              <rect x="0" y="0" width="16" height="16" rx="4" fill="url(#gSJF)"/><text class="muted" x="24" y="13">SJF</text>
+            </g>
+            <g transform="translate(170,14)">
+              <rect x="0" y="0" width="16" height="16" rx="4" fill="url(#gRR)"/><text class="muted" x="24" y="13">RR</text>
+            </g>
+            <g transform="translate(240,14)">
+              <rect x="0" y="0" width="16" height="16" rx="4" fill="url(#gPR)"/><text class="muted" x="24" y="13">Priority</text>
+            </g>
+          </g>
         </g>
 
-        <!-- faint ring -->
-        <circle cx="200" cy="200" r="120" stroke="#1e293b" stroke-width="1.5" fill="none" />
+        <!-- CPU block (right side) -->
+        <g transform="translate(380,60)">
+          <circle class="ring"    cx="140" cy="140" r="120"/>
+          <circle class="subring" cx="140" cy="140" r="70"/>
+          <rect x="100" y="100" width="80" height="80" rx="18" fill="#0b1220" stroke="#134e4a" stroke-width="2"/>
+          <circle class="pulse" cx="140" cy="140" r="10" fill="#22d3ee"/>
+          <text class="muted" x="140" y="200" text-anchor="middle">CPU</text>
+
+          <!-- Orbiting "process chips" -->
+          <g class="spinA" transform="translate(140,140)">
+            <g transform="translate(0,-120)">
+              <rect x="-24" y="-12" width="48" height="24" rx="8" fill="url(#gFIFO)"/>
+              <text class="chipTxt" text-anchor="middle" x="0" y="4">FIFO</text>
+            </g>
+          </g>
+          <g class="spinB" transform="translate(140,140)">
+            <g transform="translate(85,0)">
+              <rect x="-22" y="-11" width="44" height="22" rx="8" fill="url(#gSJF)"/>
+              <text class="chipTxt" text-anchor="middle" x="0" y="4">SJF</text>
+            </g>
+          </g>
+          <g class="spinC" transform="translate(140,140)">
+            <g transform="translate(-90,90)">
+              <rect x="-22" y="-11" width="44" height="22" rx="8" fill="url(#gRR)"/>
+              <text class="chipTxt" text-anchor="middle" x="0" y="4">RR</text>
+            </g>
+          </g>
+          <g class="spinB" transform="translate(140,140)">
+            <g transform="translate(-120,-10)">
+              <rect x="-26" y="-12" width="52" height="24" rx="8" fill="url(#gPR)"/>
+              <text class="chipTxt" text-anchor="middle" x="0" y="4">PRIO</text>
+            </g>
+          </g>
+        </g>
+
+        <!-- Mini Gantt comparisons (left bottom) -->
+        <g transform="translate(24,220)">
+          <text class="muted" x="0" y="-10">Жишээ дараалал (conceptual)</text>
+
+          <!-- FIFO -->
+          <g transform="translate(0,0)">
+            <text class="muted" x="0" y="12">FIFO</text>
+            <rect x="52" y="0" width="240" height="14" rx="8" ry="8" fill="#0b152a" stroke="#2b4c82"/>
+            <rect class="barFill" x="52" y="0" width="240" fill="url(#gFIFO)" style="animation:grow 5s ease-in-out infinite"/>
+          </g>
+
+          <!-- SJF -->
+          <g transform="translate(0,28)">
+            <text class="muted" x="0" y="12">SJF</text>
+            <rect x="52" y="0" width="240" height="14" rx="8" ry="8" fill="#0b152a" stroke="#2b4c82"/>
+            <rect class="barFill" x="52" y="0" width="72"  fill="url(#gSJF)"/>
+            <rect class="barFill" x="126" y="0" width="96"  fill="url(#gPR)" opacity=".9"/>
+            <rect class="barFill" x="226" y="0" width="66"  fill="url(#gRR)" opacity=".85"/>
+          </g>
+
+          <!-- RR -->
+          <g transform="translate(0,56)">
+            <text class="muted" x="0" y="12">RR</text>
+            <rect x="52" y="0" width="240" height="14" rx="8" ry="8" fill="#0b152a" stroke="#2b4c82"/>
+            <!-- ук-сегментүүд -->
+            <rect class="barFill" x="52"  y="0" width="32" fill="url(#gRR)"/>
+            <rect class="barFill" x="88"  y="0" width="32" fill="url(#gRR)" opacity=".85"/>
+            <rect class="barFill" x="124" y="0" width="32" fill="url(#gRR)" opacity=".7"/>
+            <rect class="barFill" x="160" y="0" width="32" fill="url(#gRR)" opacity=".55"/>
+            <rect class="barFill" x="196" y="0" width="32" fill="url(#gRR)" opacity=".4"/>
+            <rect class="barFill" x="232" y="0" width="32" fill="url(#gRR)" opacity=".25"/>
+          </g>
+
+          <!-- Priority -->
+          <g transform="translate(0,84)">
+            <text class="muted" x="0" y="12">Priority</text>
+            <rect x="52" y="0" width="240" height="14" rx="8" ry="8" fill="#0b152a" stroke="#2b4c82"/>
+            <rect class="barFill" x="52" y="0" width="120" fill="url(#gPR)"/>
+            <rect class="barFill" x="174" y="0" width="60"  fill="url(#gFIFO)" opacity=".9"/>
+            <rect class="barFill" x="238" y="0" width="54"  fill="url(#gSJF)"  opacity=".85"/>
+          </g>
+        </g>
+
+        <!-- Flow hint line -->
+        <path d="M 24 180 H 356" class="dash" stroke="#88a5ff" stroke-width="3" fill="none"/>
       </svg>
-    </div>
+    </figure>
   </div>
 </section>
 
+
 <section id="task-2">
   <style>
-    /* ---- Scoped only to #task-2 ---- */
+    /* ===== Scope: #task-2 only ===== */
     #task-2{
       --bg:#0b0f1a; --card:#101628; --border:rgba(255,255,255,.08);
       --fg:#e5eefc; --muted:#9fb1d6;
+      --glow:0 8px 32px rgba(34,211,238,.25),0 0 0 1px rgba(255,255,255,.06);
+      --ring:drop-shadow(0 4px 12px rgba(34,211,238,.35));
+      position:relative;
+      overflow-x:clip; /* block horizontal scroll */
     }
-    #task-2 .card{
-      display:grid; align-items:center; gap:24px;
-      grid-template-columns: minmax(320px,0.7fr) 1.3fr; /* зүүн текст, баруун ТОМ SVG */
-      background:var(--card); border:1px solid var(--border);
-      border-radius:16px; padding:24px;
-    }
-    #task-2 .title-chip{
-      display:inline-block; padding:8px 12px; border-radius:999px;
-      font-weight:800; font-size:14px; letter-spacing:.2px;
-      background:linear-gradient(135deg,#0ea5e9,#22d3ee); color:#07131b;
-      margin-bottom:12px;
-    }
-    #task-2 p{ margin:0; color:var(--fg); line-height:1.6 }
+    html,body{overflow-x:hidden;}
 
-    #task-2 .media-right{ display:flex; justify-content:center }
-    #task-2 .svg-wrap{
-      width:100%; aspect-ratio:1200 / 420;  /* томруулсан харагдах байдал */
-      border-radius:14px; overflow:hidden; background:#081326;
-      box-shadow:0 8px 32px rgba(0,0,0,.35); outline:1px solid rgba(255,255,255,.05);
+    #task-2::before{
+      content:"";position:absolute;inset:-2px;
+      background:
+        radial-gradient(transparent 60%,rgba(34,211,238,.08))0 0/220px 220px,
+        linear-gradient(transparent 98%,rgba(255,255,255,.06))0 0/100% 32px;
+      mask:linear-gradient(#000,transparent 85%);
+      pointer-events:none;z-index:0;animation:gridMove 14s linear infinite;
     }
-    #task-2 svg{ width:100%; height:100%; display:block }
+    @keyframes gridMove{to{background-position:220px 0,0 -32px}}
+
+    .card{
+      position:relative;z-index:1;display:grid;align-items:center;gap:24px;
+      grid-template-columns:minmax(320px,0.7fr) 1.3fr;
+      background:var(--card);border:1px solid var(--border);
+      border-radius:16px;padding:24px;box-shadow:var(--glow);
+      overflow:clip;
+      opacity:.001;transform:translateY(12px)scale(.995);
+      animation:fadeUp .7s cubic-bezier(.22,.78,.26,1) forwards .08s;
+    }
+    @keyframes fadeUp{to{opacity:1;transform:translateY(0)scale(1)}}
+
+    .title-chip{
+      display:inline-block;padding:8px 12px;border-radius:999px;
+      font-weight:800;font-size:14px;letter-spacing:.2px;
+      background:linear-gradient(135deg,#0ea5e9,#22d3ee);color:#07131b;
+      margin-bottom:12px;filter:saturate(1.1)brightness(1.02);
+      box-shadow:0 4px 16px rgba(14,165,233,.25);
+      animation:chipFloat 5.5s ease-in-out infinite;
+    }
+    @keyframes chipFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+    #task-2 p{
+      margin:0;color:var(--fg);line-height:1.6;
+      opacity:.001;transform:translateY(6px);
+      animation:textIn .7s .18s cubic-bezier(.22,.78,.22,1) forwards,shimmer 4.5s ease-in-out .3s infinite;
+      background:linear-gradient(90deg,#e5eefc 20%,#bcd3ff 40%,#e5eefc 60%)0 0/200% 100%;
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    @keyframes textIn{to{opacity:1;transform:translateY(0)}}
+    @keyframes shimmer{50%{background-position:100% 0}}
+
+    #task-2 p b{
+      position:relative;color:#e5eefc;-webkit-text-fill-color:#e5eefc;
+    }
+    #task-2 p b::after{
+      content:"";position:absolute;left:-2px;right:-2px;bottom:0;height:.55em;
+      background:linear-gradient(90deg,rgba(96,165,250,.25),rgba(34,211,238,.25));
+      border-radius:6px;z-index:-1;transform-origin:left;
+      transform:scaleX(0);animation:underline .9s .5s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    @keyframes underline{to{transform:scaleX(1)}}
+
+    .media-right{display:flex;justify-content:center;}
+    .svg-wrap{
+      position:relative;width:100%;aspect-ratio:1200/420;
+      border-radius:14px;overflow:hidden;background:#081326;
+      outline:1px solid rgba(255,255,255,.06);box-shadow:var(--glow);
+      transform:translateZ(0);transition:transform .6s cubic-bezier(.2,.8,.2,1);
+    }
+    .svg-wrap::before{
+      content:"";position:absolute;inset:-1px;border-radius:16px;
+      background:conic-gradient(from 90deg,#22d3ee,#60a5fa,#22d3ee);
+      -webkit-mask:linear-gradient(#000 0 0)content-box,linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor;mask-composite:exclude;
+      padding:1px;opacity:.25;filter:blur(.4px);
+      animation:spin 12s linear infinite;pointer-events:none;
+    }
+    @keyframes spin{to{transform:rotate(1turn)}}
+    svg{width:100%;height:100%;display:block;filter:var(--ring);}
+
+    svg .march{stroke-linecap:round;stroke-width:4;stroke-dasharray:14 10;animation:march 7s linear infinite;filter:drop-shadow(0 0 6px rgba(136,165,255,.35));}
+    @keyframes march{to{stroke-dashoffset:-600}}
+    svg .pulse{transform-origin:center;animation:pulse 2.2s ease-in-out infinite;filter:drop-shadow(0 0 10px rgba(34,211,238,.65));}
+    @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.14)}}
+    svg .grow{animation:bar 4.2s cubic-bezier(.22,.78,.22,1) infinite;}
+    @keyframes bar{0%{width:0}38%{width:64%}100%{width:64%}}
+    .svg-wrap:has(.grow)::after{
+      content:"";position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.08)50%,transparent 70%)0 0/220% 100%;
+      mix-blend-mode:screen;opacity:.45;animation:sheen 3.8s ease-in-out infinite;
+    }
+    @keyframes sheen{50%{background-position:100% 0}}
+
+    /* === Image entrance from right === */
+    #task-2 img[alt="SJF concept image"]{
+      max-width:700px;margin-left:490px;
+      opacity:0;transform:translateX(40px);
+      animation:imgInFromRight .9s cubic-bezier(.22,.78,.22,1) .2s forwards;
+      border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.35);
+    }
+    @keyframes imgInFromRight{
+      to{opacity:1;transform:translateX(0);}
+    }
+    @media (pointer:fine){
+      #task-2 img[alt="SJF concept image"]:hover{
+        transform:translateX(0)translateY(-2px)scale(1.01);
+        transition:transform .35s cubic-bezier(.2,.8,.2,1);
+      }
+    }
 
     @media (max-width:900px){
-      #task-2 .card{ grid-template-columns:1fr }
-      #task-2 .svg-wrap{ aspect-ratio:1200 / 520 }
+      .card{grid-template-columns:1fr;}
+      .svg-wrap{aspect-ratio:1200/520;}
+      #task-2 img[alt="SJF concept image"]{margin:16px auto;max-width:90%;display:block;}
     }
     @media (prefers-reduced-motion:reduce){
-      /* FIFO SVG доторх animation-уудыг намдаая */
-      #task-2 .march, #task-2 .pulse, #task-2 .grow{ animation:none !important }
+      .march,.pulse,.grow{animation:none!important;}
+      *{animation:none!important;}
     }
   </style>
 
   <div class="card content-slide stack-bottom">
     <div class="left">
       <div class="title-chip">FIRST IN FIRST OUT гэж юу вэ?</div>
-    <p>
-    Процессууд ирсэн дарааллаараа CPU-г ашиглана.  
-    Энгийн боловч <b>эхэнд ирсэн урт процесс</b> удаан ажиллавал
-    дараагийн богино процессууд бүгд хүлээж,
-    системийн дундаж хүлээлт ихэсдэг.
-    </p>
+      <p>
+        Процессууд ирсэн дарааллаараа CPU-г ашиглана.  
+        Энгийн боловч <b>эхэнд ирсэн урт процесс</b> удаан ажиллавал
+        дараагийн богино процессууд бүгд хүлээж,
+        системийн дундаж хүлээлт ихэсдэг.
+      </p>
     </div>
 
     <figure class="media-right lg" aria-label="FIFO queue → CPU">
       <div class="svg-wrap">
+        <!-- your SVG unchanged -->
         <svg viewBox="0 0 1200 360" role="img" aria-label="FIFO queue to CPU with image">
           <defs>
             <linearGradient id="fifoCPU" x1="0" y1="0" x2="1" y2="1">
@@ -414,23 +776,19 @@
             <linearGradient id="gLong" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stop-color="#f472b6"/><stop offset="1" stop-color="#db2777"/>
             </linearGradient>
-            <clipPath id="imgRound">
-              <rect x="860" y="24" width="316" height="216" rx="22" ry="22"/>
-            </clipPath>
+            <clipPath id="imgRound"><rect x="860" y="24" width="316" height="216" rx="22" ry="22"/></clipPath>
             <style>
               .lbl{font:700 16px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#dbeafe}
               .muted{font:600 12px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#9fb1d6}
               .chipTxt{font:800 14px ui-sans-serif,system-ui,Segoe UI,Roboto;fill:#0b1220}
-              .march{stroke-dasharray:10 10; animation:march 8s linear infinite}
+              .march{stroke-dasharray:10 10;animation:march 8s linear infinite}
               @keyframes march{to{stroke-dashoffset:-500}}
               .pulse{animation:pulse 2.2s ease-in-out infinite}
               @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
               .grow{animation:bar 5s ease-in-out infinite}
-              @keyframes bar{0%{width:0} 45%{width:60%} 100%{width:60%}}
+              @keyframes bar{0%{width:0}45%{width:60%}100%{width:60%}}
             </style>
           </defs>
-
-          <!-- left queue -->
           <g transform="translate(24,36)">
             <text class="lbl" x="0" y="-10">FIFO — ирсэн дарааллаараа</text>
             <rect x="0" y="0" width="520" height="96" rx="18" ry="18" fill="#0b1730" stroke="#274274"/>
@@ -444,19 +802,13 @@
               <rect rx="12" ry="12" width="86" height="38" fill="#93c5fd"/><text class="chipTxt" x="43" y="24" text-anchor="middle">P1</text>
             </g>
           </g>
-
-          <!-- flow -->
           <path d="M 560 84 H 820" class="march" stroke="#88a5ff" stroke-width="4" fill="none" opacity=".8"/>
-
-          <!-- CPU -->
           <g transform="translate(640,24)">
             <rect x="0" y="0" width="180" height="180" rx="24" ry="24" fill="url(#fifoCPU)"/>
             <rect x="14" y="14" width="152" height="152" rx="18" ry="18" fill="#0e2730" opacity=".88" stroke="#134e4a"/>
             <circle cx="90" cy="90" r="13" fill="#22d3ee" class="pulse"/>
             <text class="lbl" x="90" y="208" text-anchor="middle">CPU</text>
           </g>
-
-          <!-- gantt -->
           <g transform="translate(24,220)">
             <text class="muted" x="0" y="-10">Gantt (FIFO)</text>
             <rect x="0" y="0" width="780" height="22" rx="12" ry="12" fill="#0b152a" stroke="#2b4c82"/>
@@ -465,87 +817,185 @@
         </svg>
       </div>
     </figure>
-    <img src="/assets/23.webp" alt="SJF concept image" style="max-width: 700px; margin-left: 490px;">
+
+    <img src="/assets/23.webp" alt="SJF concept image" style="max-width:700px;margin-left:490px;">
   </div>
 </section>
 
-
 <section id="task-3">
   <style>
-    /* ---- Scoped only to #task-3 ---- */
-    #task-3 {
-      --bg:#0b0f1a;
-      --card:#101628;
-      --border:rgba(255,255,255,.08);
-      --fg:#e5eefc;
-      --muted:#9fb1d6;
+    /* ===== Scope: #task-3 only ===== */
+    #task-3{
+      --bg:#0b0f1a; --card:#101628; --border:rgba(255,255,255,.08);
+      --fg:#e5eefc; --muted:#9fb1d6;
+      --glow:0 8px 32px rgba(34,211,238,.25),0 0 0 1px rgba(255,255,255,.06);
+      --ring:drop-shadow(0 4px 12px rgba(34,211,238,.35));
+      position:relative;
+      overflow-x:clip; /* ← хэвтээ скроллгүй */
     }
+    html,body{overflow-x:hidden;}
 
-    #task-3 .card {
-      display: grid;
-      grid-template-columns: minmax(320px, 0.7fr) 1.3fr;
-      align-items: center;
-      gap: 24px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
+    /* subtle moving grid background */
+    #task-3::before{
+      content:""; position:absolute; inset:-2px;
+      background:
+        radial-gradient(transparent 60%, rgba(34,211,238,.08)) 0 0/220px 220px,
+        linear-gradient(transparent 98%, rgba(255,255,255,.06)) 0 0/100% 32px;
+      mask: linear-gradient(#000, transparent 85%);
+      pointer-events:none; z-index:0;
+      animation:gridMove3 14s linear infinite;
     }
+    @keyframes gridMove3{to{background-position:220px 0, 0 -32px}}
 
-    #task-3 .title-chip {
-      display: inline-block;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-weight: 800;
-      font-size: 14px;
-      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
-      color: #07131b;
-      margin-bottom: 12px;
+    #task-3 .card{
+      position:relative; z-index:1;
+      display:grid; grid-template-columns:minmax(320px,0.7fr) 1.3fr;
+      align-items:center; gap:24px;
+      background:var(--card); border:1px solid var(--border);
+      border-radius:16px; padding:24px; box-shadow:var(--glow);
+      overflow:clip;
+
+      opacity:.001; transform:translateY(12px) scale(.995);
+      animation:fadeUp3 .7s cubic-bezier(.22,.78,.26,1) forwards .08s;
     }
+    @keyframes fadeUp3{to{opacity:1; transform:translateY(0) scale(1)}}
 
-    #task-3 p {
-      color: var(--fg);
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    #task-3 .media-right {
-      display: flex;
-      justify-content: center;
-    }
-
-    #task-3 .svg-wrap {
-      width: 100%;
-      aspect-ratio: 1200 / 420; /* larger look */
-      border-radius: 14px;
-      overflow: hidden;
-      background: #081326;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-      outline: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    #task-3 svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-
-    @media (max-width: 900px) {
-      #task-3 .card {
-        grid-template-columns: 1fr;
+    /* progressive enhancement: scroll-driven reveal */
+    @supports (animation-timeline:view()){
+      #task-3 .card{
+        animation:reveal3 both ease;
+        animation-timeline:view();
+        animation-range:entry 0% cover 30%;
       }
-      #task-3 .svg-wrap {
-        aspect-ratio: 1200 / 520;
+      @keyframes reveal3{
+        from{opacity:.001; transform:translateY(18px) scale(.985)}
+        to  {opacity:1;    transform:translateY(0)    scale(1)}
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      #task-3 .pick,
-      #task-3 .seg1,
-      #task-3 .seg2,
-      #task-3 .seg3 {
-        animation: none !important;
+    #task-3 .title-chip{
+      display:inline-block; padding:8px 12px; border-radius:999px;
+      font-weight:800; font-size:14px; letter-spacing:.2px;
+      background:linear-gradient(135deg,#0ea5e9,#22d3ee); color:#07131b;
+      margin-bottom:12px; filter:saturate(1.1) brightness(1.02);
+      box-shadow:0 4px 16px rgba(14,165,233,.25);
+      animation:chipFloat3 5.5s ease-in-out infinite;
+    }
+    @keyframes chipFloat3{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+    /* Text: soft reveal + shimmer, bold highlight underline */
+    #task-3 p{
+      color:var(--fg); line-height:1.6; margin:0;
+      opacity:.001; transform:translateY(6px);
+      background:linear-gradient(90deg,#e5eefc 20%,#bcd3ff 40%,#e5eefc 60%) 0 0/200% 100%;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      animation:textIn3 .7s .18s cubic-bezier(.22,.78,.22,1) forwards,
+               shimmer3 4.5s ease-in-out .3s infinite;
+    }
+    @keyframes textIn3{to{opacity:1; transform:translateY(0)}}
+    @keyframes shimmer3{50%{background-position:100% 0}}
+    #task-3 p b{
+      position:relative; color:#e5eefc; -webkit-text-fill-color:#e5eefc;
+    }
+    #task-3 p b::after{
+      content:""; position:absolute; left:-2px; right:-2px; bottom:0; height:.55em;
+      background:linear-gradient(90deg,rgba(96,165,250,.25),rgba(34,211,238,.25));
+      border-radius:6px; z-index:-1; transform-origin:left; transform:scaleX(0);
+      animation:underline3 .9s .5s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    @keyframes underline3{to{transform:scaleX(1)}}
+
+    #task-3 .media-right{display:flex; justify-content:center}
+    #task-3 .svg-wrap{
+      width:100%; aspect-ratio:1200/420;
+      border-radius:14px; overflow:hidden; background:#081326;
+      box-shadow:0 8px 32px rgba(0,0,0,.35);
+      outline:1px solid rgba(255,255,255,.05);
+      position:relative; transform:translateZ(0);
+    }
+
+    /* animated ring */
+    #task-3 .svg-wrap::before{
+      content:""; position:absolute; inset:-1px; border-radius:16px;
+      background:conic-gradient(from 90deg,#22d3ee,#60a5fa,#22d3ee);
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite:xor; mask-composite:exclude;
+      padding:1px; opacity:.25; filter:blur(.4px);
+      animation:spin3 12s linear infinite; pointer-events:none;
+    }
+    @keyframes spin3{to{transform:rotate(1turn)}}
+
+    /* sheen + sparkle-in-flight (2 layers in one pseudo) */
+    #task-3 .svg-wrap::after{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      /* layer1: sparkle (radial), layer2: sheen (linear) */
+      background-image:
+        radial-gradient(circle 6px, rgba(255,255,255,.85), rgba(255,255,255,0) 60%),
+        linear-gradient(120deg, transparent 30%, rgba(255,255,255,.08) 50%, transparent 70%);
+      background-size: 12px 12px, 220% 100%;
+      background-repeat: no-repeat, no-repeat;
+      /* initial positions get animated below */
+      background-position: 260px 60px, 0 0;
+      mix-blend-mode: screen;
+      animation:
+        sparkle3 3s ease-in-out infinite,
+        sheen3 3.8s ease-in-out infinite;
+      opacity:.95; /* sparkle is bright but tiny */
+    }
+    /* Sparkle path approx: from picked P1 (~260,60) → CPU center (~740,128) */
+    @keyframes sparkle3{
+      0%   { background-position: 260px 60px, 0 0; }
+      55%  { background-position: 260px 60px, 0 0; }  /* wait until pick “moves” */
+      100% { background-position: 740px 128px, 100% 0; }
+    }
+    @keyframes sheen3{ 50%{ background-position: 260px 60px, 100% 0 } }
+
+    #task-3 svg{width:100%; height:100%; display:block; filter:var(--ring)}
+
+    /* --- SVG animation polish without altering markup --- */
+    /* Picked job glow */
+    #task-3 svg .pick{ animation: pick 3s ease-in-out infinite, glowPick 3s ease-in-out infinite }
+    @keyframes glowPick{50%{filter:drop-shadow(0 0 10px rgba(16,185,129,.6))}}
+
+    /* Gantt easing (reuse existing seg keyframes) */
+    #task-3 svg .seg1{ animation: seg1 3s cubic-bezier(.22,.78,.22,1) infinite }
+    #task-3 svg .seg2{ animation: seg2 3s cubic-bezier(.22,.78,.22,1) infinite }
+    #task-3 svg .seg3{ animation: seg3 3s cubic-bezier(.22,.78,.22,1) infinite }
+
+    /* CPU center gentle pulse */
+    #task-3 svg circle[fill="#34d399"]{
+      filter:drop-shadow(0 0 10px rgba(16,185,129,.7));
+      transform-origin: center; animation: pulseCPU3 2.4s ease-in-out infinite;
+    }
+    @keyframes pulseCPU3{50%{transform:scale(1.12)}}
+
+    /* === Image entrance from right (keep your inline size/pos) === */
+    #task-3 img[alt="SJF concept image"]{
+      /* keep your inline size & margin-left from HTML */
+      opacity:0; transform:translateX(40px);
+      animation:imgInRight3 .9s cubic-bezier(.22,.78,.22,1) .2s forwards;
+      border-radius:14px; box-shadow:0 8px 32px rgba(0,0,0,.35);
+      will-change:transform,opacity;
+    }
+    @keyframes imgInRight3{to{opacity:1; transform:translateX(0)}}
+    @media (pointer:fine){
+      #task-3 img[alt="SJF concept image"]:hover{
+        transform:translateX(0) translateY(-2px) scale(1.01);
+        transition:transform .35s cubic-bezier(.2,.8,.2,1);
       }
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      #task-3 .card{ grid-template-columns:1fr }
+      #task-3 .svg-wrap{ aspect-ratio:1200/520 }
+      #task-3 img[alt="SJF concept image"]{ margin:16px auto !important; max-width:90%; display:block }
+    }
+
+    /* Motion accessibility */
+    @media (prefers-reduced-motion:reduce){
+      #task-3 *{ animation:none !important }
+      #task-3 .card{ opacity:1; transform:none }
     }
   </style>
 
@@ -582,122 +1032,39 @@
               <stop offset="1" stop-color="#db2777" />
             </linearGradient>
             <style>
-              .lbl {
-                font: 700 16px ui-sans-serif, system-ui, Segoe UI, Roboto;
-                fill: #d1fae5;
+              .lbl { font:700 16px ui-sans-serif,system-ui,Segoe UI,Roboto; fill:#d1fae5; }
+              .muted { font:600 12px ui-sans-serif,system-ui,Segoe UI,Roboto; fill:#9fb1d6; }
+              .chipTxt { font:800 14px ui-sans-serif,system-ui,Segoe UI,Roboto; fill:#0b1220; }
+              .pick { animation: pick 3s ease-in-out infinite; }
+              @keyframes pick{
+                0%,55%{ transform: translate(0,0) scale(1) }
+                70%,100%{ transform: translate(240px,8px) scale(1.06) }
               }
-              .muted {
-                font: 600 12px ui-sans-serif, system-ui, Segoe UI, Roboto;
-                fill: #9fb1d6;
-              }
-              .chipTxt {
-                font: 800 14px ui-sans-serif, system-ui, Segoe UI, Roboto;
-                fill: #0b1220;
-              }
-              .pick {
-                animation: pick 3s ease-in-out infinite;
-              }
-              @keyframes pick {
-                0%,
-                55% {
-                  transform: translate(0, 0) scale(1);
-                }
-                70%,
-                100% {
-                  transform: translate(240px, 8px) scale(1.06);
-                }
-              }
-              .seg1 {
-                animation: seg1 3s ease-in-out infinite;
-              }
-              .seg2 {
-                animation: seg2 3s ease-in-out infinite;
-              }
-              .seg3 {
-                animation: seg3 3s ease-in-out infinite;
-              }
-              @keyframes seg1 {
-                0% {
-                  width: 0;
-                }
-                55% {
-                  width: 28%;
-                }
-                100% {
-                  width: 28%;
-                }
-              }
-              @keyframes seg2 {
-                0% {
-                  width: 0;
-                }
-                55% {
-                  width: 0;
-                }
-                85% {
-                  width: 62%;
-                }
-                100% {
-                  width: 62%;
-                }
-              }
-              @keyframes seg3 {
-                0% {
-                  width: 0;
-                }
-                85% {
-                  width: 0;
-                }
-                100% {
-                  width: 100%;
-                }
-              }
+              .seg1 { animation: seg1 3s ease-in-out infinite; }
+              .seg2 { animation: seg2 3s ease-in-out infinite; }
+              .seg3 { animation: seg3 3s ease-in-out infinite; }
+              @keyframes seg1 { 0%{width:0} 55%{width:28%} 100%{width:28%} }
+              @keyframes seg2 { 0%{width:0} 55%{width:0} 85%{width:62%} 100%{width:62%} }
+              @keyframes seg3 { 0%{width:0} 85%{width:0} 100%{width:100%} }
             </style>
           </defs>
 
           <!-- ready set -->
           <g transform="translate(24,36)">
             <text class="lbl" x="0" y="-10">SJF — хамгийн богиног түрүүлж сонгоно</text>
-            <rect
-              x="0"
-              y="0"
-              width="520"
-              height="110"
-              rx="18"
-              ry="18"
-              fill="#0b1730"
-              stroke="#274274"
-            />
+            <rect x="0" y="0" width="520" height="110" rx="18" ry="18" fill="#0b1730" stroke="#274274"/>
             <g transform="translate(16,22)">
-              <rect
-                rx="12"
-                ry="12"
-                width="86"
-                height="38"
-                fill="url(#cLong)"
-              />
+              <rect rx="12" ry="12" width="86" height="38" fill="url(#cLong)"/>
               <text class="chipTxt" x="43" y="24" text-anchor="middle">P4</text>
               <text class="muted" x="-2" y="64">burst: 9</text>
             </g>
             <g transform="translate(116,22)">
-              <rect
-                rx="12"
-                ry="12"
-                width="86"
-                height="38"
-                fill="url(#cMed)"
-              />
+              <rect rx="12" ry="12" width="86" height="38" fill="url(#cMed)"/>
               <text class="chipTxt" x="43" y="24" text-anchor="middle">P2</text>
               <text class="muted" x="-2" y="64">burst: 5</text>
             </g>
             <g class="pick" transform="translate(216,22)">
-              <rect
-                rx="12"
-                ry="12"
-                width="86"
-                height="38"
-                fill="url(#cShort)"
-              />
+              <rect rx="12" ry="12" width="86" height="38" fill="url(#cShort)"/>
               <text class="chipTxt" x="43" y="24" text-anchor="middle">P1</text>
               <text class="muted" x="-2" y="64">burst: 2</text>
             </g>
@@ -705,87 +1072,29 @@
 
           <!-- CPU -->
           <g transform="translate(640,28)">
-            <rect
-              x="0"
-              y="0"
-              width="200"
-              height="200"
-              rx="26"
-              ry="26"
-              fill="url(#sjfCPU)"
-            />
-            <rect
-              x="14"
-              y="14"
-              width="172"
-              height="172"
-              rx="20"
-              ry="20"
-              fill="#0e2a23"
-              opacity=".92"
-              stroke="#065f46"
-            />
-            <circle cx="100" cy="100" r="14" fill="#34d399" />
-            <text
-              class="lbl"
-              x="100"
-              y="224"
-              text-anchor="middle"
-              fill="#d1fae5"
-            >
-              CPU
-            </text>
+            <rect x="0" y="0" width="200" height="200" rx="26" ry="26" fill="url(#sjfCPU)"/>
+            <rect x="14" y="14" width="172" height="172" rx="20" ry="20" fill="#0e2a23" opacity=".92" stroke="#065f46"/>
+            <circle cx="100" cy="100" r="14" fill="#34d399"/>
+            <text class="lbl" x="100" y="224" text-anchor="middle" fill="#d1fae5">CPU</text>
           </g>
 
           <!-- Gantt -->
           <g transform="translate(470,240)">
             <text class="muted" x="0" y="-12">Gantt (SJF): P1 → P2 → P4</text>
-            <rect
-              x="0"
-              y="0"
-              width="700"
-              height="22"
-              rx="12"
-              ry="12"
-              fill="#0b152a"
-              stroke="#2b4c82"
-            />
-            <rect
-              x="0"
-              y="0"
-              height="22"
-              rx="12"
-              ry="12"
-              fill="url(#cShort)"
-              class="seg1"
-            />
-            <rect
-              x="0"
-              y="0"
-              height="22"
-              rx="12"
-              ry="12"
-              fill="url(#cMed)"
-              class="seg2"
-              opacity=".9"
-            />
-            <rect
-              x="0"
-              y="0"
-              height="22"
-              rx="12"
-              ry="12"
-              fill="url(#cLong)"
-              class="seg3"
-              opacity=".85"
-            />
+            <rect x="0" y="0" width="700" height="22" rx="12" ry="12" fill="#0b152a" stroke="#2b4c82"/>
+            <rect x="0" y="0" height="22" rx="12" ry="12" fill="url(#cShort)" class="seg1"/>
+            <rect x="0" y="0" height="22" rx="12" ry="12" fill="url(#cMed)" class="seg2" opacity=".9"/>
+            <rect x="0" y="0" height="22" rx="12" ry="12" fill="url(#cLong)" class="seg3" opacity=".85"/>
           </g>
         </svg>
       </div>
     </figure>
+
+    <!-- keep your original image sizing/position; just animate from right -->
     <img src="/assets/24.webp" alt="SJF concept image" style="max-width: 700px; margin-left: 490px;">
   </div>
 </section>
+
 
 <!-- Slide 4 — RR concept -->
 <section id="task-4">
@@ -843,14 +1152,14 @@
       <div class="title-chip">ROUND ROBIN-ийн ажиллагаа</div>
       <p>
         Бүх процесс тогтмол <em>time quantum (q)</em>-аар ээлжилж CPU авч, хугацаа дуусахад дараагийнх руу шилжинэ.
-        Тэгш хуваарилалттай, урт ажилд дарагдахгүй. Доор <strong>q=2</strong> жишээг үзүүлэв.
+        Тэгш хуваарилалттай, урт ажилд дарагдахгүй. Доор <strong>q=1</strong> жишээг үзүүлэв.
       </p>
     </div>
 
     <figure class="media-right lg" aria-label="Round Robin demo SVG">
       <div class="svg-wrap">
         <svg viewBox="0 0 1200 420" role="img" aria-labelledby="rrTitle">
-          <title id="rrTitle">Round Robin — q=2, эргэлдэх ээлжлэл</title>
+          <title id="rrTitle">Round Robin — q=1, эргэлдэх ээлжлэл</title>
           <defs>
             <!-- Palettes -->
             <linearGradient id="cpuGrad" x1="0" y1="0" x2="1" y2="1">
@@ -899,7 +1208,7 @@
 
           <!-- Queue (left) -->
           <g transform="translate(28,32)">
-            <text class="lbl" x="0" y="-10">RR — q = 2</text>
+            <text class="lbl" x="0" y="-10">RR — q = 1</text>
             <rect x="0" y="0" width="520" height="106" rx="18" ry="18" fill="#0b1730" stroke="#274274"/>
             <g transform="translate(18,22)">
               <rect rx="12" ry="12" width="86" height="40" fill="url(#p1)"/>
@@ -933,7 +1242,7 @@
 
           <!-- Gantt timeline (RR order P1→P2→P3→P4→P1→...) -->
           <g transform="translate(28,240)">
-            <text class="muted" x="0" y="-12">Gantt (RR, q=2): P1 | P2 | P3 | P4 | P1 | P3 | P3</text>
+            <text class="muted" x="0" y="-12">Gantt (RR, q=1): P1 | P2 | P3 | P4 | P1 | P3 | P3</text>
             <rect x="0" y="0" width="820" height="26" rx="12" ry="12" fill="#0b152a" stroke="#2b4c82"/>
             <!-- segments (approximate order for bursts: P1:4, P2:3, P3:5, P4:2) -->
             <!-- each segment ~ two units -->
@@ -952,7 +1261,7 @@
 
           <!-- Legend -->
           <g transform="translate(900,252)">
-            <text class="lbl" x="0" y="0">Legend</text>
+            <text class="lbl" x="0" y="0"></text>
             <g transform="translate(0,12)">
               <rect width="18" height="12" rx="3" ry="3" fill="url(#p1)"/><text class="muted" x="26" y="11">P1</text>
             </g>
@@ -969,7 +1278,7 @@
               <rect width="18" height="12" rx="3" ry="3" fill="url(#cpuGrad)"/><text class="muted" x="26" y="11">CPU/flow</text>
             </g>
             <g transform="translate(0,120)">
-              <rect width="18" height="12" rx="3" ry="3" fill="#fff" opacity=".15"/><text class="muted" x="26" y="11">time quantum (q=2)</text>
+              <rect width="18" height="12" rx="3" ry="3" fill="#fff" opacity=".15"/><text class="muted" x="26" y="11">time quantum (q=1)</text>
             </g>
           </g>
         </svg>
@@ -1154,7 +1463,7 @@
 
           <!-- Legend -->
           <g transform="translate(900,252)">
-            <text class="lbl" x="0" y="0">Legend</text>
+            <text class="lbl" x="0" y="0"></text>
             <g transform="translate(0,12)">
               <rect width="18" height="12" rx="3" ry="3" fill="url(#p2)"/><text class="muted" x="26" y="11">P2 (prio 1, 3)</text>
             </g>
@@ -1176,450 +1485,415 @@
 </section>
 
 
-<section id="sim">
-  <style>
-/* ---- scoped to #sim only (final clean) ---- */
-#sim{
-  /* Design tokens */
-  --bg:#0b0f1a;
-  --card:#101628;
-  --panel:#0b1220;
-  --chip:#0b1730;
-  --border:rgba(255,255,255,.10);
-  --line:#22355e;
-  --fg:#e5eefc;
-  --muted:#9fb1d6;
-  --accent:#22d3ee;
-  --accent-2:#60a5fa;
-  --danger:#f87171;
-
-  --r:16px;          /* radius */
-  --pad:16px;        /* panel padding */
-  --gap:12px;        /* grid gap */
-  --shadow:0 8px 28px rgba(0,0,0,.35);
-}
-#sim .card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--r);
-  box-shadow:var(--shadow);
-}
-
-/* Header */
-#sim .sim-head{ padding:20px; margin-bottom:16px }
-#sim h2{ margin:0 0 6px; color:var(--fg); letter-spacing:.2px }
-#sim .muted{ color:var(--muted); margin:0 }
-
-/* Form */
-#sim .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end }
-#sim label{ display:block; font:600 12px ui-sans-serif,system-ui; color:var(--muted); margin:0 0 6px }
-#sim input{
-  appearance:none; outline:none;
-  background:var(--panel);
-  border:1px solid var(--border);
-  color:var(--fg);
-  border-radius:12px;
-  padding:9px 12px;
-  min-width:110px;
-  transition:border-color .15s ease, box-shadow .15s ease;
-}
-#sim input:focus-visible{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(34,211,238,.22);
-}
-
-/* Buttons */
-#sim .btn{
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  color:#07131b;
-  border:0;
-  padding:10px 14px;
-  border-radius:12px;
-  font:800 13px ui-sans-serif,system-ui;
-  cursor:pointer;
-  transition:transform .06s ease, filter .15s ease;
-}
-#sim .btn:hover{ filter:brightness(1.08) }
-#sim .btn:active{ transform:translateY(1px) }
-#sim .btn.ghost{
-  background:var(--panel);
-  color:var(--fg);
-  border:1px solid var(--border);
-}
-
-/* Algo segmented */
-#sim .segmented{
-  display:flex; gap:6px; padding:6px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:14px;
-}
-#sim .segBtn{
-  background:transparent; color:var(--fg);
-  border:0; padding:8px 12px;
-  border-radius:10px; cursor:pointer;
-  font-weight:700; letter-spacing:.2px;
-}
-#sim .segBtn:hover{ background:#0f1a2f }
-#sim .segBtn.active{
-  background:#122138; box-shadow:inset 0 0 0 1px var(--line);
-}
-
-/* Controls row */
-#sim .sim-panel{ padding:var(--pad) }
-#sim .sim-controls{
-  display:flex; justify-content:space-between; align-items:flex-end;
-  gap:16px; margin-bottom:16px;
-}
-
-/* Range (speed) */
-#sim input[type="range"]{
-  width:160px; height:6px; background:#0e1a33;
-  border-radius:999px; outline:none; border:1px solid var(--border);
-}
-#sim input[type="range"]::-webkit-slider-thumb{
-  -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  border:0; box-shadow:0 0 0 2px #0e1a33;
-}
-
-/* Grid */
-#sim .sim-grid{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap:16px }
-#sim .sim-left{ display:flex; flex-direction:column; gap:12px }
-
-/* Table */
-#sim .table{
-  border:1px solid var(--border);
-  border-radius:12px; overflow:hidden;
-  background:var(--panel);
-}
-#sim .trow{
-  display:grid; grid-template-columns: 1.1fr 1fr 1fr 1fr .7fr;
-  gap:10px; padding:10px 12px; align-items:center;
-  border-bottom:1px solid rgba(255,255,255,.04);
-}
-#sim .trow:nth-child(odd){ background:#0e1730 }
-#sim .trow.head{
-  background:#0b152a; font-weight:800; color:#dbeafe;
-  border-bottom:1px solid rgba(255,255,255,.08);
-}
-#sim .trow .del button{
-  background:#2a334d; color:#e5eefc; border:0; padding:6px 8px;
-  border-radius:8px; cursor:pointer;
-}
-#sim .trow .del button:hover{ background:#3b4566 }
-#sim .trow .del button:active{ transform:translateY(1px) }
-
-/* Legends */
-#sim .legend{ display:flex; align-items:center; gap:12px; color:var(--muted); font-size:12px }
-#sim .legend .dot{ width:14px; height:14px; border-radius:999px; border:1px solid var(--border); display:inline-block }
-
-/* Live panes */
-#sim .viz{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
-#sim .pane{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:12px; padding:12px; min-height:96px;
-}
-#sim .pane h4{ margin:0 0 8px; color:var(--fg); font:700 14px ui-sans-serif }
-#sim .chips{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; min-height:34px }
-#sim .chip{
-  background:var(--chip);
-  border:1px solid var(--line);
-  color:#dbeafe;
-  padding:6px 10px; border-radius:999px; font:800 12px ui-sans-serif;
-}
-#sim .chip .sub{ font:700 11px ui-sans-serif; color:var(--muted); margin-left:6px }
-
-/* CPU pane */
-#sim .cpu-box{ display:flex; align-items:center; gap:12px }
-#sim .cpu{
-  width:70px; height:70px; border-radius:16px;
-  background:linear-gradient(135deg,var(--accent),var(--accent-2));
-  display:grid; place-items:center; color:#07131b; font:800 12px ui-sans-serif;
-  box-shadow:var(--shadow);
-}
-#sim .cpuState{ display:flex; gap:8px; align-items:center; flex-wrap:wrap }
-#sim .tag{
-  background:#0e1a33; border:1px solid var(--line);
-  color:#cbd5e1; border-radius:8px; padding:4px 8px;
-  font:700 11px ui-sans-serif
-}
-
-/* Result / Gantt */
-#sim .result{ margin-top:12px }
-#sim .sim-title{ display:flex; align-items:center; justify-content:space-between; gap:12px }
-#sim .pill{
-  background:#0b152a; border:1px solid var(--border);
-  color:#dbeafe; border-radius:999px; padding:6px 10px;
-  font:700 12px ui-sans-serif
-}
-#sim .gantt{
-  display:flex; gap:2px; overflow-x:auto;
-  padding:8px; background:var(--panel);
-  border:1px solid var(--border); border-radius:10px; min-height:44px
-}
-#sim .slice{
-  display:flex; align-items:center; justify-content:center;
-  min-width:34px; height:28px; border-radius:8px;
-  color:#07131b; font:800 11px ui-sans-serif;
-  transition: width .2s linear, transform .08s ease;
-  background:linear-gradient(135deg,#22d3ee,#60a5fa);
-}
-#sim .slice.idle{
-  background:#60a5fa2a; color:#e5eefc; border:1px dashed #60a5fa66
-}
-#sim .slice.ctx{
-  background:#a78bfa2a; color:#e5eefc; border:1px dashed #a78bfa66
-}
-#sim .slice:hover{ transform:translateY(-1px) }
-#sim .tick{ color:var(--muted); font:700 11px ui-sans-serif; margin-top:6px; white-space:pre }
-
-/* Event log */
-#sim .elog{
-  background:var(--panel); border:1px solid var(--border);
-  border-radius:10px; padding:8px; max-height:160px; overflow:auto;
-  font:600 12px ui-sans-serif; color:#cbd5e1; line-height:1.5
-}
-#sim .elog b{ color:#e5eefc }
-
-/* Scrollbar (webkit) */
-#sim ::-webkit-scrollbar{ height:8px; width:8px }
-#sim ::-webkit-scrollbar-thumb{ background:#2a3a62; border-radius:999px }
-#sim ::-webkit-scrollbar-track{ background:#0b1326 }
-
-/* Responsive */
-@media (max-width: 1080px){
-  #sim .sim-grid{ grid-template-columns:1fr }
-}
-@media (max-width: 720px){
-  #sim .viz{ grid-template-columns:1fr }
-  #sim input{ min-width:90px }
-}
-
-/* Motion-reduce */
-@media (prefers-reduced-motion:reduce){
-  #sim .btn, #sim .slice{ transition:none }
-}
-/* Single horizontal scrollbar around Gantt+ticks */
-#sim .gantt-scroll{
-  display:block;
-  max-width:100%;
-  overflow-x:auto;
-  overflow-y:hidden;
-  border:1px solid var(--border);
-  border-radius:10px;
-  background:var(--panel);
-  padding:6px 8px;
-  scrollbar-gutter: stable both-edges;
-}
-
-/* both rows grow wide together */
-#sim .gantt-scroll > .gantt,
-#sim .gantt-scroll > .tick{
-  width:max-content;
-  min-width:100%;
-  margin:0;
-}
-
-/* inner gantt has no own scroll/borders */
-#sim .gantt-scroll > .gantt{
-  overflow:visible !important;
-  border:0 !important;
-  padding:8px 0 0 !important;
-  background:transparent !important;
-}
-
-/* ticks line inside wrapper */
-#sim .gantt-scroll > .tick{
-  margin-top:6px;
-  color:var(--muted);
-  white-space:pre;
-}
-
-  </style>
-
-<div class="card sim-head">
-    <h2>CPU Төлөвлөлтийн Симуляци</h2>
-    <p class="muted">Процессуудыг оруулж, алгоритмаа сонгоод <b>Run</b> дар. (arrival=орсон дарааллаараа, burst=ажиллах хугацаа, priority бага байх тусам өндөр эрх)</p>
-
-    <form id="procForm" class="row" onsubmit="return false;">
-      <div><label>ID</label><input id="pid" placeholder="P1" /></div>
-      <div><label>Arrival</label><input id="arrival" type="number" min="0" step="1" placeholder="0" /></div>
-      <div><label>Burst</label><input id="burst" type="number" min="1" step="1" placeholder="5" /></div>
-      <div><label>Priority</label><input id="priority" type="number" min="0" step="1" placeholder="1" /></div>
-      <div class="row right">
-        <button id="add" class="btn">Нэмэх</button>
-        <button id="seed" class="btn ghost" type="button">Жишээ</button>
-        <button id="clear" class="btn ghost" type="button">Цэвэрлэх</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="card sim-panel">
-    <div class="sim-controls">
-      <div class="segmented" id="algos">
-        <button class="segBtn active" data-a="fcfs">FCFS</button>
-        <button class="segBtn" data-a="sjf">SJF</button>
-        <button class="segBtn" data-a="priority">Priority</button>
-        <button class="segBtn" data-a="rr">Round-Robin</button>
+<!-- ================= CPU Scheduler — FINAL, FITS VIEWPORT ================= -->
+<section id="sim" class="slide">
+  <div class="vp">
+    <!-- top bar (title + form) -->
+    <div class="card sim-head stack">
+      <div class="stack-xs">
+        <h2>CPU Төлөвлөлтийн Симуляци</h2>
+        <p class="muted">
+          Процессуудыг оруулж, алгоритмаа сонгоод <b>Run</b> дар. (arrival=орсон дарааллаараа,
+          burst=ажиллах хугацаа, priority бага байх тусам өндөр эрх)
+        </p>
       </div>
 
-      <div class="row" style="align-items:flex-end">
-        <div>
-          <label>Quantum</label>
-          <input id="quantum" type="number" min="1" step="1" value="2" style="max-width:110px">
+      <form id="procForm" class="row row-end" onsubmit="return false;">
+        <div class="field"><label>ID</label><input id="pid" placeholder="P1"/></div>
+        <div class="field"><label>Arrival</label><input id="arrival" type="number" min="0" step="1" placeholder="0"/></div>
+        <div class="field"><label>Burst</label><input id="burst" type="number" min="1" step="1" placeholder="5"/></div>
+        <div class="field"><label>Priority</label><input id="priority" type="number" min="0" step="1" placeholder="1"/></div>
+        <div class="actions">
+          <button id="add" class="btn">Нэмэх</button>
+          <button id="seed" class="btn ghost" type="button">Жишээ</button>
+          <button id="clear" class="btn ghost" type="button">Цэвэрлэх</button>
         </div>
-        <div class="controls">
-          <button class="btn" id="run">Run</button>
-          <button class="btn ghost" id="pause" type="button">Pause</button>
-          <button class="btn ghost" id="step" type="button">Step</button>
-          <label class="muted">Speed</label>
-          <input type="range" id="speed" min="50" max="800" value="220" />
-        </div>
-      </div>
+      </form>
     </div>
 
-    <div class="viz">
-      <div class="pane">
-        <h4>Ready Queue</h4>
-        <div id="readyQ" class="chips"></div>
+    <!-- scrollable body (controls+viz+table+gantt) -->
+    <div class="body card">
+      <!-- sticky controls -->
+      <div class="controls">
+      <div class="segmented list" id="algos" role="tablist">
+        <ul class="algo-list">
+          <li><button class="segBtn active" data-a="fcfs">FCFS</button></li>
+          <li><button class="segBtn" data-a="sjf">SJF</button></li>
+          <li><button class="segBtn" data-a="priority">Priority</button></li>
+          <li><button class="segBtn" data-a="rr">Round-Robin</button></li>
+        </ul>
       </div>
-      <div class="pane">
-        <h4>CPU / Context</h4>
-        <div class="cpu-box">
-          <div class="cpu">CPU</div>
-          <div class="cpuState">
-            <div class="tag" id="cpuNow">—</div>
-            <div class="tag" id="qLeft" style="display:none">q: —</div>
-            <div class="tag" id="ctxState" style="display:none">context switch…</div>
+
+        <div class="ctrl-right">
+          <div class="field w-sm" style="padding-left: 100px;">
+            <label>Quantum</label>
+            <input id="quantum" type="number" min="1" step="1" value="2"/>
+          </div>
+          <div class="btns" style="padding-left: 300px;">
+            <button class="btn" id="run">Run</button>
+            <button class="btn ghost" id="pause" type="button">Pause</button>
+            <button class="btn ghost" id="step" type="button">Step</button>
+          </div>
+          <div class="field range w-md">
+            <label class="muted">Speed</label>
+            <input type="range" id="speed" min="50" max="800" value="220"/>
           </div>
         </div>
-      </div>
-      <div class="pane">
-        <h4>Done</h4>
-        <div id="doneQ" class="chips"></div>
-      </div>
-      <div class="pane">
-        <h4>Events</h4>
-        <div id="elog" class="elog"></div>
+
+        <!-- cool subtle SVG animation -->
+        <svg class="ctrl-aurora" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="gradMove" x1="0%" x2="100%" y1="0%" y2="0%">
+              <stop offset="0%" stop-color="#22d3ee"/>
+              <stop offset="50%" stop-color="#60a5fa"/>
+              <stop offset="100%" stop-color="#a78bfa"/>
+              <animate attributeName="x1" values="0%;-50%;0%" dur="8s" repeatCount="indefinite"/>
+              <animate attributeName="x2" values="100%;50%;100%" dur="8s" repeatCount="indefinite"/>
+            </linearGradient>
+          </defs>
+          <path d="M0,80 C200,120 400,40 600,80 C800,120 1000,40 1200,80 L1200,120 L0,120 Z"
+                fill="url(#gradMove)" opacity=".15">
+            <animateTransform attributeName="transform" type="translate"
+                              values="0 0; -60 0; 0 0" dur="10s" repeatCount="indefinite"/>
+          </path>
+        </svg>
       </div>
     </div>
 
-    <div class="sim-grid" style="margin-top:12px;margin-bottom:50px">
-      <div class="sim-left">
-        <div class="table" id="list">
-          <div class="trow head"><div>ID</div><div>Arrival</div><div>Burst</div><div>Priority</div><div>Del</div></div>
-        </div>
-        <div class="legend">
-          <span class="dot" style="background:#60a5fa55"></span> Idle
-          <span class="dot" style="background:#a78bfa55"></span> Context
-        </div>
+<div class="content" style="margin-bottom: 60px;">
+  <div class="pane rq stack-xs">
+    <h4>Ready Queue</h4>
+    <div id="readyQ" class="chips"></div>
+  </div>
+
+  <div class="pane cpuCtx stack-xs">
+    <h4>CPU / Context</h4>
+    <div class="cpu-box">
+      <div class="cpu">CPU</div>
+      <div class="cpuState">
+        <div class="tag" id="cpuNow">—</div>
+        <div class="tag" id="qLeft" style="display:none">q: —</div>
+        <div class="tag" id="ctxState" style="display:none">context switch…</div>
       </div>
-
-        <div class="sim-right">
-        <div class="card result" id="result" style="display:none">
-            <div class="sim-title">
-            <h3 style="margin:8px 0">Gantt диаграмм</h3>
-            <div class="pill algo-pill" id="algoShow"></div>
-            </div>
-
-            <!-- NEW: scroll wrapper -->
-            <div class="gantt-scroll">
-            <div id="gantt" class="gantt"></div>
-            <div id="ticks" class="tick"></div>
-            </div>
-
-            <div class="stats" id="stats" style="margin-top:8px"></div>
-        </div>
-        </div>
     </div>
+  </div>
+
+  <div class="pane done stack-xs">
+    <h4>Done</h4>
+    <div id="doneQ" class="chips"></div>
+  </div>
+
+  <div class="pane events stack-xs">
+    <h4>Events</h4>
+    <div id="elog" class="elog"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="table wide" id="list">
+    <div class="trow head"><div>ID</div><div>Arrival</div><div>Burst</div><div>Priority</div><div>Del</div></div>
+  </div>
+
+  <div class="legend wide">
+    <span class="dot" style="background:#60a5fa55"></span> Idle
+    <span class="dot" style="background:#a78bfa55"></span> Context
+  </div>
+
+  <!-- Gantt (fits width) -->
+  <div class="card result wide stack-xs" id="result" style="display:none">
+    <div class="sim-title">
+      <h3>Gantt диаграмм</h3>
+      <div class="pill algo-pill" id="algoShow"></div>
+    </div>
+
+    <div class="gantt-fit">
+      <div id="gantt" class="gantt"></div>
+      <div id="ticks" class="tick"></div>
+    </div>
+
+    <div class="stats" id="stats"></div>
+  </div>
 </div>
+
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ====== END SLIDE ====== -->
+<!-- ===== OUTRO (centered stack) ===== -->
 <section id="outro" class="slide">
-  <div class="card outro-content">
-    <h1>Баярлалаа!</h1>
-    <p>
-      <b>2-р багийнхан</b> байлаа.<br>
-      Анхаарал хандуулсанд баярлалаа 💡
-    </p>
+  <!-- ambient glow -->
+  <div class="rays" aria-hidden="true"></div>
+
+  <!-- floating particles -->
+  <canvas class="fx" aria-hidden="true"></canvas>
+
+  <!-- confetti burst container -->
+  <div class="confetti" aria-hidden="true"></div>
+
+  <!-- main content -->
+  <div class="outro-stage">
+    <div id="outroCard" class="card">
+      <h1 class="title">
+        <span class="stroke">Баярлалаа!</span>
+        <span class="text">Баярлалаа!</span>
+      </h1>
+      <p class="sub">
+        <b>2-р багийнхан</b> байлаа.<br/>
+        Анхаарал хандуулсанд баярлалаа <span class="spark">💡</span>
+      </p>
+    </div>
   </div>
 </section>
 
 <style>
-  /* -------- Outro Slide Styles -------- */
-  #outro.slide {
-    display: none;
-    position: relative;
-    min-height: 90vh;
-    text-align: center;
-    overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, #0b1220 0%, #060910 100%);
-    color: #e5eefc;
-    animation: fadeIn .6s ease-out;
-  }
-  #outro.slide.active { display: grid; place-items: center; }
+/* ===== Outro-only scoped styles ===== */
+#outro.slide{
+  /* 🔧 Хэзээ ч идэвхгүй үед харагдахгүй */
+  display: none;
+  position: relative;
+  place-items: center;
+  min-height: calc(100vh - var(--nav-h, 0px));
+  padding: clamp(16px, 2vw, 32px);
+  background: radial-gradient(circle at 50% 50%, #0b1220 0%, #060910 100%);
+  color: #e5eefc;
+  overflow: hidden;
+}
+#outro.slide.active{ display:grid; }
 
-  #outro h1 {
-    font-size: clamp(48px, 6vw, 92px);
-    font-weight: 900;
-    margin: 0;
-    letter-spacing: 1px;
-    background: linear-gradient(90deg, #22d3ee, #60a5fa, #a78bfa);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glowText 4s ease-in-out infinite;
-  }
-  #outro p {
-    font-size: clamp(16px, 2vw, 22px);
-    color: #9fb1d6;
-    margin-top: 18px;
-    line-height: 1.6;
-  }
-  @keyframes glowText {
-    0%,100% { filter: drop-shadow(0 0 4px #22d3ee) drop-shadow(0 0 12px #60a5fa); }
-    50% { filter: drop-shadow(0 0 12px #a78bfa) drop-shadow(0 0 24px #60a5fa); }
-  }
+#outro .outro-stage{
+  width: min(1100px, 92vw);
+  margin: auto;
+  position: relative;
+  z-index: 2;
+}
 
-  /* bubbles */
-  #outro .bubble {
-    position: absolute;
-    bottom: -60px;
-    background: radial-gradient(circle at 30% 30%, #22d3ee, transparent 70%);
-    border-radius: 50%;
-    opacity: 0.4;
-    animation: rise 14s linear infinite;
-  }
-  @keyframes rise {
-    0% { transform: translateY(0) scale(0.8); opacity: 0.5; }
-    80% { opacity: 0.6; }
-    100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
-  }
+/* ambient rays */
+#outro .rays{
+  position:absolute; inset:-25% -15%;
+  background:
+    conic-gradient(from 0deg at 50% 120%,
+      rgba(96,165,250,.22), transparent 40%,
+      rgba(34,211,238,.18), transparent 70%,
+      rgba(167,139,250,.22), transparent 100%);
+  filter: blur(42px);
+  opacity:.25;
+  animation:o-raysSpin 30s linear infinite;
+  pointer-events:none;
+  z-index:0;
+}
+@keyframes o-raysSpin{ to{ transform:rotate(360deg) } }
 
-  @keyframes fadeIn { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:none} }
+/* particles canvas */
+#outro .fx{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  filter:saturate(115%);
+  opacity:.65; z-index:1;
+}
+
+/* glass / neon card */
+#outro .card{
+  position:relative;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:clamp(10px,1.6vw,16px);
+  text-align:center;
+
+  width:min(940px, 92vw);
+  margin:0 auto;
+  padding:clamp(22px, 4.2vw, 48px);
+  border-radius:28px;
+  background:rgba(17,24,39,.52);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 20px 70px rgba(0,0,0,.55),
+             inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+#outro .card::before{
+  content:"";
+  position:absolute; inset:-1px;
+  border-radius:30px;
+  padding:1px;
+  background:linear-gradient(135deg,#22d3ee,#60a5fa 45%,#a78bfa);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:.35; pointer-events:none;
+}
+
+/* title layered neon */
+#outro .title{ position:relative; margin:0 0 .2em 0; line-height:1.02; }
+#outro .title .text,
+#outro .title .stroke{
+  display:block; font-weight:900;
+  font-size:clamp(44px, 7.5vw, 88px); /* хэт томроод скрол үүсгэхгүй */
+  letter-spacing:.5px;
+}
+#outro .title .text{
+  background: conic-gradient(from 10deg,#22d3ee,#60a5fa,#a78bfa,#22d3ee);
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter: drop-shadow(0 8px 28px rgba(96,165,250,.22));
+  animation:o-glow 6s ease-in-out infinite;
+  position:relative;
+}
+#outro .title .text::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(100deg, transparent 0 40%,
+            rgba(255,255,255,.18) 50%, transparent 60% 100%);
+  background-size:220% 100%;
+  mix-blend-mode:screen;
+  animation:o-shine 3.2s ease-in-out infinite .6s;
+}
+#outro .title .stroke{
+  position:absolute; inset:0; z-index:-1;
+  color:#7aa2ff; opacity:.12; filter:blur(18px);
+  animation:o-breath 7.5s ease-in-out infinite;
+}
+
+@keyframes o-shine{ 0%{background-position:120% 0} 100%{background-position:-40% 0} }
+@keyframes o-glow{ 0%,100%{ filter: drop-shadow(0 8px 28px rgba(34,211,238,.18))}
+                   50%{ filter: drop-shadow(0 12px 44px rgba(96,165,250,.30))} }
+@keyframes o-breath{ 0%,100%{transform:scale(1);opacity:.12} 50%{transform:scale(1.04);opacity:.2} }
+
+/* sub text */
+#outro .sub{
+  margin:8px 0 0 0;
+  font-size:clamp(16px, 2.2vw, 22px);
+  color:#b6c7e6; line-height:1.65;
+}
+#outro .spark{ filter:drop-shadow(0 0 10px rgba(250,204,21,.5)); }
+
+/* confetti */
+#outro .confetti{ position:absolute; inset:0; pointer-events:none; z-index:3; }
+#outro .confetti i{
+  position:absolute; width:10px; height:16px; border-radius:2px;
+  opacity:0; transform:translate3d(0,-20px,0) rotate(0);
+  animation:o-drop 900ms cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes o-drop{
+  0%{ opacity:0; transform:translate3d(0,-20px,0) rotate(0) }
+  12%{ opacity:1 }
+  100%{ transform:translate3d(var(--dx),var(--dy),0) rotate(var(--rot)) }
+}
+
+/* motion-safe */
+@media (prefers-reduced-motion: reduce){
+  #outro .rays,
+  #outro .title .text::after,
+  #outro .title .text,
+  #outro .title .stroke,
+  #outro .confetti i,
+  #outro .card{ animation:none !important; transition:none !important; }
+}
 </style>
 
 <script>
-  // 👇 bubble генератор зөвхөн outro дээр ажиллана
-  const outro = document.getElementById('outro');
-  for (let i = 0; i < 18; i++) {
-    const b = document.createElement('span');
-    b.className = 'bubble';
-    const size = Math.random() * 60 + 10;
-    b.style.width = `${size}px`;
-    b.style.height = `${size}px`;
-    b.style.left = `${Math.random() * 100}%`;
-    b.style.animationDelay = `${Math.random() * 8}s`;
-    b.style.background = `radial-gradient(circle at 30% 30%, ${
-      ['#22d3ee','#60a5fa','#a78bfa'][Math.floor(Math.random()*3)]
-    }, transparent 70%)`;
-    outro.appendChild(b);
-  }
-</script>
+(() => {
+  const root = document.getElementById('outro');
+  const card = document.getElementById('outroCard');
+  const canvas = root.querySelector('.fx');
+  const conf = root.querySelector('.confetti');
 
+  let particles = []; let ctx; let raf; let initialized = false;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* canvas size */
+  function resize() {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+  }
+
+  /* tiny particle system */
+  function initParticles() {
+    if (reduceMotion) return;
+    ctx = canvas.getContext('2d', { alpha: true });
+    resize(); particles = [];
+    const count = Math.round((canvas.width * canvas.height) / 38000);
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2.2 + 0.8,
+        s: Math.random() * 0.6 + 0.2,
+        c: ['#22d3ee','#60a5fa','#a78bfa'][Math.floor(Math.random()*3)]
+      });
+    }
+  }
+  function step() {
+    if (!ctx) return;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for (const p of particles) {
+      p.y -= p.s * 0.6;
+      p.x += Math.sin((p.y + p.r) * 0.004) * 0.6;
+      if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random()*canvas.width; }
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = p.c; ctx.globalAlpha = 0.55; ctx.fill(); ctx.globalAlpha = 1;
+    }
+    raf = requestAnimationFrame(step);
+  }
+
+  /* parallax tilt */
+  function bindParallax() {
+    if (reduceMotion) return;
+    const rect = () => card.getBoundingClientRect();
+    card.addEventListener('mousemove', (e) => {
+      const r = rect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      const rx = (py * -8).toFixed(2);
+      const ry = (px * 10).toFixed(2);
+      card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'rotateX(0) rotateY(0)';
+    });
+  }
+
+  /* one-shot confetti */
+  function burstConfetti() {
+    if (reduceMotion) return;
+    conf.innerHTML = '';
+    const colors = ['#22d3ee','#60a5fa','#a78bfa','#34d399','#f472b6','#fde047'];
+    const N = 26;
+    for (let i=0; i<N; i++) {
+      const el = document.createElement('i');
+      el.style.left = '50%';
+      el.style.top  = '50%';
+      el.style.background = colors[i % colors.length];
+      const ang = (i / N) * Math.PI * 2 + (Math.random()*0.6-0.3);
+      const dist = 220 + Math.random()*180;
+      const dx = Math.cos(ang) * dist;
+      const dy = Math.sin(ang) * dist;
+      const rot = (Math.random()*720 - 360) + 'deg';
+      el.style.setProperty('--dx', dx + 'px');
+      el.style.setProperty('--dy', dy + 'px');
+      el.style.setProperty('--rot', rot);
+      el.style.animationDelay = (Math.random()*0.08)+'s';
+      conf.appendChild(el);
+    }
+  }
+
+  /* watch .active */
+  const obs = new MutationObserver(() => {
+    const active = root.classList.contains('active');
+    if (active && !initialized) {
+      initialized = true;
+      if (!reduceMotion) {
+        initParticles(); step(); bindParallax(); burstConfetti();
+        addEventListener('resize', () => { cancelAnimationFrame(raf); initParticles(); step(); }, { passive:true });
+      }
+      card.animate(
+        [{ opacity:0, transform:'translateY(10px) scale(.992)' }, { opacity:1, transform:'none' }],
+        { duration:550, easing:'cubic-bezier(.2,.8,.2,1)', fill:'forwards' }
+      );
+    }
+    if (!active && raf) { cancelAnimationFrame(raf); raf = null; }
+  });
+  obs.observe(root, { attributes:true, attributeFilter:['class'] });
+
+})();
+</script>
 
 <footer class="foot">
   <div class="row">
